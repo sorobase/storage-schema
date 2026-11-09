@@ -1,0 +1,30 @@
+# Demo contracts for storage-schema. Separate workspace: pins soroban-sdk
+# =28.0.0, the version both upstreams use (soroban-examples @03d42aa, OZ
+# stellar-contracts v0.8.0), checked 2026-11-03. DEMO-ONLY test subjects.
+[workspace]
+resolver = "2"
+members = ["token", "increment", "oz-pausable", "oz-keys", "oz-extern", "capture"]
+
+[workspace.package]
+version = "0.0.0"
+edition = "2021"
+publish = false
+
+[workspace.dependencies]
+soroban-sdk = "=28.0.0"
+soroban-token-sdk = "=28.0.0"
+stellar-tokens = "=0.8.0"
+stellar-contract-utils = "=0.8.0"
+stellar-macros = "=0.8.0"
+sik-storage-schema-macros = { path = "../crates/macros" }
+sik-storage-schema-core = { path = "../crates/core", default-features = false }
+
+[profile.release]
+opt-level = "z"
+overflow-checks = true
+debug = 0
+strip = "symbols"
+debug-assertions = false
+panic = "abort"
+codegen-units = 1
+lto = true

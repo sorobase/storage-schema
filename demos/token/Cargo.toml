@@ -1,0 +1,22 @@
+[package]
+name = "ssc-demo-token"
+description = "DEMO-ONLY: soroban-examples token (Apache-2.0, @03d42aa) annotated with #[storage_schema]"
+version.workspace = true
+edition.workspace = true
+publish.workspace = true
+license = "Apache-2.0"
+
+[lib]
+crate-type = ["cdylib", "rlib"]
+doctest = false
+
+[dependencies]
+soroban-sdk = { workspace = true }
+soroban-token-sdk = { workspace = true }
+sik-storage-schema-macros = { workspace = true }
+
+[dev-dependencies]
+soroban-sdk = { workspace = true, features = ["testutils"] }
+sik-storage-schema-core = { workspace = true }
+ssc-capture = { path = "../capture" }
+serde_json = "1"

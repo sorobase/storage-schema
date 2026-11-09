@@ -1,0 +1,15 @@
+[package]
+name = "ssc-demo-oz-keys"
+description = "DEMO-ONLY (SSC-013): storage_schema_extern! declarations, in a library crate, for the keys OpenZeppelin stellar-tokens / stellar-contract-utils 0.8.0 write"
+version.workspace = true
+edition.workspace = true
+publish.workspace = true
+license = "Apache-2.0"
+
+[lib]
+doctest = false
+
+[dependencies]
+soroban-sdk = { workspace = true }
+stellar-tokens = { workspace = true }
+sik-storage-schema-macros = { workspace = true }

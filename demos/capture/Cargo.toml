@@ -1,0 +1,13 @@
+[package]
+name = "ssc-capture"
+description = "Test helper: write the ledger entries a demo contract wrote in the soroban test host as a getLedgerEntries-shaped JSON (SSC-024)"
+version.workspace = true
+edition.workspace = true
+publish.workspace = true
+license = "Apache-2.0"
+
+[lib]
+doctest = false
+
+[dependencies]
+sik-storage-schema-core = { workspace = true }

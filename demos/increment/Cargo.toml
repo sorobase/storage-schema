@@ -1,0 +1,20 @@
+[package]
+name = "ssc-demo-increment"
+description = "DEMO-ONLY: soroban-examples increment (Apache-2.0, @03d42aa) with a #[storage_key] raw-symbol key"
+version.workspace = true
+edition.workspace = true
+publish.workspace = true
+license = "Apache-2.0"
+
+[lib]
+crate-type = ["cdylib", "rlib"]
+doctest = false
+
+[dependencies]
+soroban-sdk = { workspace = true }
+sik-storage-schema-macros = { workspace = true }
+
+[dev-dependencies]
+soroban-sdk = { workspace = true, features = ["testutils"] }
+sik-storage-schema-core = { workspace = true }
+ssc-capture = { path = "../capture" }

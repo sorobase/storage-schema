@@ -1,0 +1,23 @@
+[package]
+name = "ssc-demo-oz-pausable"
+description = "DEMO-ONLY: OpenZeppelin stellar-contracts v0.8.0 examples/fungible-pausable (MIT), UNMODIFIED; schema injected post-build from a sidecar"
+version.workspace = true
+edition.workspace = true
+publish.workspace = true
+license = "MIT"
+
+[lib]
+crate-type = ["cdylib", "rlib"]
+doctest = false
+
+[dependencies]
+soroban-sdk = { workspace = true }
+stellar-contract-utils = { workspace = true }
+stellar-macros = { workspace = true }
+stellar-tokens = { workspace = true }
+
+[dev-dependencies]
+soroban-sdk = { workspace = true, features = ["testutils"] }
+sik-storage-schema-core = { workspace = true }
+ssc-capture = { path = "../capture" }
+serde_json = "1"

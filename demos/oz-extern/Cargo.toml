@@ -1,0 +1,24 @@
+[package]
+name = "ssc-demo-oz-extern"
+description = "DEMO-ONLY (SSC-013): fungible + pausable token on OpenZeppelin stellar-tokens 0.8.0 whose OZ-written keys are declared via storage_schema_extern! in ssc-demo-oz-keys"
+version.workspace = true
+edition.workspace = true
+publish.workspace = true
+license = "Apache-2.0"
+
+[lib]
+crate-type = ["cdylib", "rlib"]
+doctest = false
+
+[dependencies]
+soroban-sdk = { workspace = true }
+stellar-tokens = { workspace = true }
+stellar-contract-utils = { workspace = true }
+sik-storage-schema-macros = { workspace = true }
+ssc-demo-oz-keys = { path = "../oz-keys" }
+
+[dev-dependencies]
+soroban-sdk = { workspace = true, features = ["testutils"] }
+sik-storage-schema-core = { workspace = true }
+ssc-capture = { path = "../capture" }
+serde_json = "1"
