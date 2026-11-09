@@ -1,0 +1,42 @@
+[workspace]
+resolver = "2"
+members = ["crates/core", "crates/macros", "crates/cli", "crates/web"]
+# The demo contracts live in their own workspace (demos/) because they pin
+# soroban-sdk =28.0.0 and build for wasm32v1-none. This workspace has no
+# soroban-sdk dependency at all: the format is SDK-version independent.
+exclude = ["demos"]
+
+[workspace.package]
+version = "0.1.0"
+edition = "2021"
+license = "Apache-2.0"
+publish = false
+rust-version = "1.91"
+
+[workspace.dependencies]
+# stellar-xdr 28.0.0 is the version soroban-sdk 28.0.0 pins (=28.0.0), checked
+# in the cargo registry 2026-11-03. It decodes protocol-29 mainnet entries.
+stellar-xdr = { version = "=28.0.0", default-features = false, features = ["std", "serde", "base64"] }
+syn = { version = "2", features = ["full", "extra-traits"] }
+quote = "1"
+proc-macro2 = "1"
+serde = { version = "1", features = ["derive"] }
+serde_json = "1"
+thiserror = "2"
+sha2 = "0.10"
+hex = "0.4"
+base64 = "0.22"
+clap = { version = "4", features = ["derive"] }
+ureq = { version = "2.12", features = ["json"] }
+
+[profile.release]
+debug = 0
+
+# Browser engine (crates/web, scripts/build-engine.sh): small and panic=abort.
+[profile.engine]
+inherits = "release"
+opt-level = "z"
+lto = true
+codegen-units = 1
+panic = "abort"
+strip = true
