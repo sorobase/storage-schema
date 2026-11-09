@@ -1,0 +1,30 @@
+{
+  "contractspecv0": {
+    "entries": 26,
+    "udts": [
+      "ExampleContractError",
+      "PausableError",
+      "FungibleTokenError"
+    ]
+  },
+  "contractstoragev0": null,
+  "custom_sections": [
+    {
+      "bytes": 32,
+      "name": "contractenvmetav0"
+    },
+    {
+      "bytes": 150,
+      "name": "contractmetav0"
+    },
+    {
+      "bytes": 85,
+      "name": "contractmetav0"
+    },
+    {
+      "bytes": 4426,
+      "name": "contractspecv0"
+    }
+  ],
+  "wasm_bytes": 12541
+}

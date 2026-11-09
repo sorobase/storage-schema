@@ -1,0 +1,119 @@
+---
+// SPDX-License-Identifier: Apache-2.0
+// Landing hero (design/DESIGN.md 10, "Hero treatment"): monogram + family,
+// name, one sentence, gate badges, one primary and one secondary action. The
+// instrument panel holds the signature figure, read from src/data (pnpm
+// demo:data) with its provenance chip; nothing here is typed in by hand.
+import GateBadge from './kit/GateBadge.astro';
+import ProvenanceChip from './kit/ProvenanceChip.astro';
+import scenarios from '../data/scenarios.json';
+
+const usdc = scenarios.find((s) => s.id === 'mainnet-usdc-sac')!;
+const holder = scenarios.find((s) => s.id === 'mainnet-holder-no-schema')!;
+const base = import.meta.env.BASE_URL.replace(/\/?$/, '/');
+const fmt = (n: number) => n.toLocaleString('en-US');
+---
+
+<section class="ss-hero not-content" aria-labelledby="ss-hero-title">
+  <div class="ss-hero-copy">
+    <div class="ss-hero-id">
+      <span class="ss-hero-mono" aria-hidden="true">SSC</span>
+      <span class="ss-hero-family">Contract tooling and payments</span>
+    </div>
+    <p id="ss-hero-title" class="ss-hero-name">storage-schema</p>
+    <p class="ss-hero-lede">
+      Contracts describe the storage they write, so explorers and indexers can name and type raw ledger entries.
+    </p>
+    <div class="ss-row">
+      <GateBadge kind="mainnet-read-only" />
+      <GateBadge kind="unaudited" />
+      <GateBadge kind="demo-only" label="Demo contracts: demo-only" description="The demo contracts are test subjects built for this project. Do not deploy them with value." />
+    </div>
+    <div class="ss-row ss-hero-actions">
+      <a class="ss-btn ss-btn-primary" href={`${base}playground/?s=mainnet-usdc-sac`}>Open playground</a>
+      <a class="ss-btn" href={`${base}sep-draft/`}>SEP draft</a>
+    </div>
+  </div>
+
+  <div class="ss-tray">
+    <div class="ss-plate">
+      <p class="ss-plate-label">USDC entries on mainnet decoded to named, typed records</p>
+      <p class="ss-plate-figure">
+        {fmt(usdc.summary.by_status.matched)}<span class="ss-plate-unit">of {fmt(usdc.summary.total)} matched</span>
+      </p>
+      <p class="ss-plate-note">
+        Instance storage and five contract-holder balances of the USDC Stellar Asset Contract, through a sidecar schema.
+        Without a schema, a holder contract's {fmt(holder.summary.total)} instance entries are all unknown.
+      </p>
+      <ProvenanceChip
+        kind="recorded"
+        ledger={usdc.provenance.ledger}
+        date={usdc.provenance.date}
+        source={usdc.provenance.source}
+        href={`${base}playground/?s=mainnet-usdc-sac`}
+        note="getLedgerEntries, read-only; scripts/capture-mainnet.sh"
+      />
+    </div>
+  </div>
+</section>
+
+<style>
+  .ss-hero { display: grid; grid-template-columns: 1fr; gap: 2rem; align-items: center; padding-block: 0.5rem 1.5rem; }
+  @media (min-width: 768px) {
+    .ss-hero { grid-template-columns: minmax(0, 1.35fr) minmax(0, 1fr); gap: 3rem; padding-block: 1.5rem 2.5rem; }
+  }
+  .ss-hero-copy { display: grid; gap: 1.25rem; justify-items: start; }
+  .ss-hero-id { display: flex; align-items: center; gap: 0.75rem; }
+  .ss-hero-mono {
+    display: inline-grid;
+    place-items: center;
+    height: 2.75rem;
+    min-width: 2.75rem;
+    padding: 0 0.5rem;
+    border: 1px solid color-mix(in oklab, var(--sik-accent) 25%, transparent);
+    border-radius: var(--sik-radius-xs);
+    background: var(--sik-accent-wash);
+    color: var(--sik-accent);
+    font-family: var(--sik-font-mono);
+    font-size: var(--sik-text-sm);
+    font-weight: 600;
+  }
+  .ss-hero-family { color: var(--sik-ink-3); font-size: var(--sik-text-sm); }
+  .ss-hero-name {
+    margin: 0;
+    color: var(--sik-ink);
+    font-size: var(--sik-text-3xl);
+    line-height: var(--sik-text-3xl--lh);
+    font-weight: 600;
+    letter-spacing: var(--sik-tracking-hero);
+  }
+  .ss-hero-lede { margin: 0; max-width: 36ch; color: var(--sik-ink-2); font-size: var(--sik-text-md); line-height: var(--sik-text-md--lh); text-wrap: pretty; }
+  .ss-hero-actions { margin-top: 0.25rem; }
+  /* The one nested container in the kit: sunken tray holding a surface plate. */
+  .ss-tray { padding: 6px; border: 1px solid var(--sik-line); border-radius: var(--sik-radius-lg); background: var(--sik-sunken); }
+  .ss-plate {
+    display: grid;
+    gap: 0.75rem;
+    justify-items: start;
+    padding: 1.25rem;
+    border: 1px solid var(--sik-line);
+    border-radius: 8px;
+    background: var(--sik-surface);
+    box-shadow: inset 0 1px 0 0 var(--sik-highlight);
+  }
+  .ss-plate-label { margin: 0; color: var(--sik-ink-2); font-size: var(--sik-text-sm); line-height: var(--sik-text-sm--lh); }
+  .ss-plate-figure {
+    display: flex;
+    align-items: baseline;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    margin: 0;
+    color: var(--sik-ink);
+    font-size: var(--sik-text-hero);
+    line-height: var(--sik-text-hero--lh);
+    font-weight: 500;
+    letter-spacing: var(--sik-tracking-hero);
+  }
+  .ss-plate-unit { color: var(--sik-ink-3); font-size: var(--sik-text-md); font-weight: 400; letter-spacing: 0; }
+  .ss-plate-note { margin: 0; color: var(--sik-ink-3); font-size: var(--sik-text-xs); line-height: var(--sik-text-xs--lh); }
+</style>

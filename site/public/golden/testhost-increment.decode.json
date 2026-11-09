@@ -1,0 +1,42 @@
+{
+  "instances": [
+    {
+      "contract": "CBKMUZNFQIAL775XBB2W2GP5CNHBM5YGH6C3XB7AY6SUVO2IBU3VYK2V",
+      "executable": "wasm",
+      "wasm_hash": "af05d5bed2217776a840a237ee2ae7e484534697c6ce66f5dbd01307037fd09e",
+      "storage_entries": 1,
+      "live_until_ledger": 4095
+    }
+  ],
+  "summary": {
+    "total": 1,
+    "by_status": {
+      "ambiguous": 0,
+      "matched": 1,
+      "unknown": 0,
+      "value_mismatch": 0
+    }
+  },
+  "entries": [
+    {
+      "durability": "instance",
+      "status": "matched",
+      "name": "COUNTER",
+      "schema_source": "embedded",
+      "key": "COUNTER",
+      "value": 3,
+      "value_type": "u32",
+      "key_shape": "Symbol(\"COUNTER\")",
+      "source": {
+        "contract": "CBKMUZNFQIAL775XBB2W2GP5CNHBM5YGH6C3XB7AY6SUVO2IBU3VYK2V",
+        "ledger_entry": "instance_storage",
+        "last_modified_ledger": 0,
+        "live_until_ledger": 4095
+      },
+      "raw": {
+        "key_xdr": "AAAADwAAAAdDT1VOVEVSAA==",
+        "val_xdr": "AAAAAwAAAAM="
+      }
+    }
+  ]
+}

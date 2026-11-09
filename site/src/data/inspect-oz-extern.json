@@ -1,0 +1,78 @@
+{
+  "contractspecv0": {
+    "entries": 11,
+    "udts": [
+      "PausableError",
+      "FungibleTokenError"
+    ]
+  },
+  "contractstoragev0": {
+    "keys": [
+      {
+        "durability": "instance",
+        "key": "Symbol(\"OWNER\")",
+        "lib": "",
+        "name": "OWNER",
+        "value": "Address"
+      },
+      {
+        "durability": "instance",
+        "key": "[Symbol(\"Meta\")]",
+        "lib": "stellar-tokens@0.8.0",
+        "name": "FungibleStorageKey::Meta",
+        "value": "Metadata"
+      },
+      {
+        "durability": "persistent",
+        "key": "[Symbol(\"Balance\"), Address]",
+        "lib": "stellar-tokens@0.8.0",
+        "name": "FungibleStorageKey::Balance",
+        "value": "i128"
+      },
+      {
+        "durability": "temporary",
+        "key": "[Symbol(\"Allowance\"), AllowanceKey]",
+        "lib": "stellar-tokens@0.8.0",
+        "name": "FungibleStorageKey::Allowance",
+        "value": "AllowanceData"
+      },
+      {
+        "durability": "instance",
+        "key": "[Symbol(\"Paused\")]",
+        "lib": "stellar-contract-utils@0.8.0",
+        "name": "PausableStorageKey::Paused",
+        "value": "bool"
+      }
+    ],
+    "payload_bytes": 1344,
+    "sections": 1,
+    "types": [
+      "Metadata",
+      "AllowanceData",
+      "AllowanceKey"
+    ]
+  },
+  "custom_sections": [
+    {
+      "bytes": 1365,
+      "name": "contractstoragev0"
+    },
+    {
+      "bytes": 32,
+      "name": "contractenvmetav0"
+    },
+    {
+      "bytes": 150,
+      "name": "contractmetav0"
+    },
+    {
+      "bytes": 85,
+      "name": "contractmetav0"
+    },
+    {
+      "bytes": 2842,
+      "name": "contractspecv0"
+    }
+  ],
+  "wasm_bytes": 8682
+}

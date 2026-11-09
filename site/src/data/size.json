@@ -1,0 +1,87 @@
+{
+  "measured": "2026-11-08T05:53:04Z",
+  "method": "raw pairs: identical source and cargo rustc command, baseline adds --cfg sik_storage_schema_off to the final crate so the macro emits nothing; OZ pair: stellar contract build output vs post-build inject; unpaired rows: stellar contract build (shaken) outputs",
+  "reports": [
+    {
+      "baseline": {
+        "code_identical": true,
+        "delta_bytes": 885,
+        "identical_after_strip": true,
+        "wasm": "ssc_demo_token.noschema.wasm",
+        "wasm_bytes": 11915
+      },
+      "code_digest": "51e5600a99dc6987d947f12522b0a334f69e40d85a743eba954cd7fa8f9ca7fe",
+      "contractstoragev0_payload_bytes": 864,
+      "contractstoragev0_section_bytes": 885,
+      "key_entries": 4,
+      "share_of_wasm_percent": 6.91,
+      "type_entries": 3,
+      "wasm": "ssc_demo_token.raw.wasm",
+      "wasm_bytes": 12800
+    },
+    {
+      "baseline": {
+        "code_identical": true,
+        "delta_bytes": 72,
+        "identical_after_strip": true,
+        "wasm": "ssc_demo_increment.noschema.wasm",
+        "wasm_bytes": 3847
+      },
+      "code_digest": "b9d90488b6940553db1e1e2c5247a8d5ca3f0c89a2ce29b3f1ec923b3e725067",
+      "contractstoragev0_payload_bytes": 52,
+      "contractstoragev0_section_bytes": 72,
+      "key_entries": 1,
+      "share_of_wasm_percent": 1.84,
+      "type_entries": 0,
+      "wasm": "ssc_demo_increment.raw.wasm",
+      "wasm_bytes": 3919
+    },
+    {
+      "code_digest": "51e5600a99dc6987d947f12522b0a334f69e40d85a743eba954cd7fa8f9ca7fe",
+      "contractstoragev0_payload_bytes": 864,
+      "contractstoragev0_section_bytes": 885,
+      "key_entries": 4,
+      "share_of_wasm_percent": 9.96,
+      "type_entries": 3,
+      "wasm": "ssc_demo_token.wasm",
+      "wasm_bytes": 8885
+    },
+    {
+      "code_digest": "b9d90488b6940553db1e1e2c5247a8d5ca3f0c89a2ce29b3f1ec923b3e725067",
+      "contractstoragev0_payload_bytes": 52,
+      "contractstoragev0_section_bytes": 72,
+      "key_entries": 1,
+      "share_of_wasm_percent": 9.64,
+      "type_entries": 0,
+      "wasm": "ssc_demo_increment.wasm",
+      "wasm_bytes": 747
+    },
+    {
+      "code_digest": "ba3181bfee1a11524e369d7b198430ef6332a3f894e3b8d7766795055a8c71ca",
+      "contractstoragev0_payload_bytes": 1344,
+      "contractstoragev0_section_bytes": 1365,
+      "key_entries": 5,
+      "share_of_wasm_percent": 15.72,
+      "type_entries": 3,
+      "wasm": "ssc_demo_oz_extern.wasm",
+      "wasm_bytes": 8682
+    },
+    {
+      "baseline": {
+        "code_identical": true,
+        "delta_bytes": 1273,
+        "identical_after_strip": true,
+        "wasm": "ssc_demo_oz_pausable.wasm",
+        "wasm_bytes": 12541
+      },
+      "code_digest": "2b21dbe20c96078d954ad266dd3bcf84abbdd7fdfb16da6171941a7c4a572b81",
+      "contractstoragev0_payload_bytes": 1252,
+      "contractstoragev0_section_bytes": 1273,
+      "key_entries": 7,
+      "share_of_wasm_percent": 9.22,
+      "type_entries": 3,
+      "wasm": "ssc_demo_oz_pausable.injected.wasm",
+      "wasm_bytes": 13814
+    }
+  ]
+}

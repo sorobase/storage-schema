@@ -1,0 +1,11 @@
+{
+  "format": "sik.storage-schema.engine-provenance",
+  "built_at": "2026-11-08T19:00:03Z",
+  "crate": "sik-storage-schema-web 0.1.0 (links sik-storage-schema-core 0.1.0, feature rpc off)",
+  "rustc": "rustc 1.97.1 (8bab26f4f 2026-07-14)",
+  "target": "wasm32-unknown-unknown",
+  "profile": "engine (opt-level z, lto, codegen-units 1, panic abort, strip)",
+  "command": "bash scripts/build-engine.sh",
+  "sha256": "5e21fd2acb8668be0fb484cf48ea3c4f91156c7908c695eb56213b56ec0b3e2d",
+  "size": 1100577
+}

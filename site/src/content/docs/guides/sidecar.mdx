@@ -1,0 +1,37 @@
+---
+title: Sidecar files
+description: The same schema as a JSON file, for contracts that never adopt the macros, including the Stellar Asset Contract, which has no wasm.
+---
+{/* SPDX-License-Identifier: Apache-2.0 */}
+
+A sidecar is the same model as the section, as JSON. JSON Schema: `schemas/storage-schema.v0.schema.json`. `inject` followed by `inspect --format sidecar` round-trips byte for byte (tests `sidecar::tests::parse_and_roundtrip` and CLI `inject_extract_roundtrip`).
+
+```json
+{
+  "storage_schema": 0,
+  "description": "free text",
+  "keys": [
+    { "name": "DataKey::Balance", "lib": "", "durability": "persistent",
+      "key": { "tagged": { "tag": "Balance", "fields": ["Address"] } }, "value": "i128" },
+    { "name": "COUNTER", "durability": "instance", "key": { "symbol": "COUNTER" }, "value": "u32" },
+    { "name": "Seven", "durability": "temporary", "key": { "exact": { "u32": 7 } }, "value": "bool" },
+    { "name": "ByAddr", "durability": "temporary", "key": { "typed": "Address" }, "value": "Val" }
+  ],
+  "types": [
+    "pub struct BalanceValue { pub amount: i128, pub authorized: bool, pub clawback: bool }"
+  ]
+}
+```
+
+- Types are written in Rust syntax (the mapping the macro uses) or as stellar-xdr JSON of an `SCSpecEntry`.
+- `exact` takes stellar-xdr JSON of an `ScVal`; `symbol` is shorthand for an exact Symbol.
+- Unknown fields are rejected and `storage_schema` must be `0`, so a typo is an error, not a silent gap.
+
+## Shipped sidecars
+
+| File | Describes | Written from |
+|---|---|---|
+| `sidecars/stellar-asset-contract.storage.json` | the built-in Stellar Asset Contract (instance metadata, admin, asset info; persistent balances; temporary allowances) | soroban-env-host 28.0.2 sources (Apache-2.0); no code copied |
+| `sidecars/oz-fungible-pausable-v0.8.0.storage.json` | OpenZeppelin stellar-contracts v0.8.0 `examples/fungible-pausable` | the v0.8.0 sources (tag v0.8.0, commit ddc327e), by hand |
+
+Both are used by the [playground](/playground/) scenarios. A sidecar written by hand is only as right as its author; the decoder makes errors visible (`value_mismatch`, `unknown` with the key shape) rather than hiding them.

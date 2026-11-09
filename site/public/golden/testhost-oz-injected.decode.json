@@ -1,0 +1,202 @@
+{
+  "instances": [
+    {
+      "contract": "CAJXGFIU32R2SF4BVXV2EB2XSSUPUBQMNXWJWB5GYS7WE76TFPPR7Q7P",
+      "executable": "wasm",
+      "wasm_hash": "de1b465d6afc8c9d58fd7ebc02e8ddc427f250bf70a5c1e158c3a1eb110cd826",
+      "storage_entries": 3,
+      "live_until_ledger": 4095
+    }
+  ],
+  "summary": {
+    "total": 7,
+    "by_status": {
+      "ambiguous": 0,
+      "matched": 7,
+      "unknown": 0,
+      "value_mismatch": 0
+    }
+  },
+  "entries": [
+    {
+      "durability": "temporary",
+      "status": "matched",
+      "name": "FungibleStorageKey::Allowance",
+      "lib": "stellar-tokens@0.8.0",
+      "schema_source": "embedded",
+      "key": {
+        "fields": [
+          {
+            "owner": "CAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAD2KM",
+            "spender": "CAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAFCT4"
+          }
+        ],
+        "tag": "Allowance"
+      },
+      "value": {
+        "amount": "7",
+        "live_until_ledger": 500
+      },
+      "value_type": "AllowanceData",
+      "key_shape": "[Symbol(\"Allowance\"), {owner: Address, spender: Address}]",
+      "source": {
+        "contract": "CAJXGFIU32R2SF4BVXV2EB2XSSUPUBQMNXWJWB5GYS7WE76TFPPR7Q7P",
+        "ledger_entry": "contract_data",
+        "last_modified_ledger": 0,
+        "live_until_ledger": 500
+      },
+      "raw": {
+        "key_xdr": "AAAAEAAAAAEAAAACAAAADwAAAAlBbGxvd2FuY2UAAAAAAAARAAAAAQAAAAIAAAAPAAAABW93bmVyAAAAAAAAEgAAAAEAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAQAAAA8AAAAHc3BlbmRlcgAAAAASAAAAAQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAC",
+        "val_xdr": "AAAAEQAAAAEAAAACAAAADwAAAAZhbW91bnQAAAAAAAoAAAAAAAAAAAAAAAAAAAAHAAAADwAAABFsaXZlX3VudGlsX2xlZGdlcgAAAAAAAAMAAAH0"
+      }
+    },
+    {
+      "durability": "persistent",
+      "status": "matched",
+      "name": "FungibleStorageKey::Balance",
+      "lib": "stellar-tokens@0.8.0",
+      "schema_source": "embedded",
+      "key": {
+        "fields": [
+          "CAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAD2KM"
+        ],
+        "tag": "Balance"
+      },
+      "value": "3800",
+      "value_type": "i128",
+      "key_shape": "[Symbol(\"Balance\"), Address]",
+      "source": {
+        "contract": "CAJXGFIU32R2SF4BVXV2EB2XSSUPUBQMNXWJWB5GYS7WE76TFPPR7Q7P",
+        "ledger_entry": "contract_data",
+        "last_modified_ledger": 0,
+        "live_until_ledger": 518400
+      },
+      "raw": {
+        "key_xdr": "AAAAEAAAAAEAAAACAAAADwAAAAdCYWxhbmNlAAAAABIAAAABAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAE=",
+        "val_xdr": "AAAACgAAAAAAAAAAAAAAAAAADtg="
+      }
+    },
+    {
+      "durability": "persistent",
+      "status": "matched",
+      "name": "FungibleStorageKey::Balance",
+      "lib": "stellar-tokens@0.8.0",
+      "schema_source": "embedded",
+      "key": {
+        "fields": [
+          "CAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAFCT4"
+        ],
+        "tag": "Balance"
+      },
+      "value": "1200",
+      "value_type": "i128",
+      "key_shape": "[Symbol(\"Balance\"), Address]",
+      "source": {
+        "contract": "CAJXGFIU32R2SF4BVXV2EB2XSSUPUBQMNXWJWB5GYS7WE76TFPPR7Q7P",
+        "ledger_entry": "contract_data",
+        "last_modified_ledger": 0,
+        "live_until_ledger": 4095
+      },
+      "raw": {
+        "key_xdr": "AAAAEAAAAAEAAAACAAAADwAAAAdCYWxhbmNlAAAAABIAAAABAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAI=",
+        "val_xdr": "AAAACgAAAAAAAAAAAAAAAAAABLA="
+      }
+    },
+    {
+      "durability": "persistent",
+      "status": "matched",
+      "name": "TotalSupplyStorageKey::TotalSupply",
+      "lib": "stellar-tokens@0.8.0",
+      "schema_source": "embedded",
+      "key": {
+        "fields": [],
+        "tag": "TotalSupply"
+      },
+      "value": "5000",
+      "value_type": "i128",
+      "key_shape": "[Symbol(\"TotalSupply\")]",
+      "source": {
+        "contract": "CAJXGFIU32R2SF4BVXV2EB2XSSUPUBQMNXWJWB5GYS7WE76TFPPR7Q7P",
+        "ledger_entry": "contract_data",
+        "last_modified_ledger": 0,
+        "live_until_ledger": 4095
+      },
+      "raw": {
+        "key_xdr": "AAAAEAAAAAEAAAABAAAADwAAAAtUb3RhbFN1cHBseQA=",
+        "val_xdr": "AAAACgAAAAAAAAAAAAAAAAAAE4g="
+      }
+    },
+    {
+      "durability": "instance",
+      "status": "matched",
+      "name": "OWNER",
+      "schema_source": "embedded",
+      "key": "OWNER",
+      "value": "CAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAD2KM",
+      "value_type": "Address",
+      "key_shape": "Symbol(\"OWNER\")",
+      "source": {
+        "contract": "CAJXGFIU32R2SF4BVXV2EB2XSSUPUBQMNXWJWB5GYS7WE76TFPPR7Q7P",
+        "ledger_entry": "instance_storage",
+        "last_modified_ledger": 0,
+        "live_until_ledger": 4095
+      },
+      "raw": {
+        "key_xdr": "AAAADwAAAAVPV05FUgAAAA==",
+        "val_xdr": "AAAAEgAAAAEAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAQ=="
+      }
+    },
+    {
+      "durability": "instance",
+      "status": "matched",
+      "name": "FungibleStorageKey::Meta",
+      "lib": "stellar-tokens@0.8.0",
+      "schema_source": "embedded",
+      "key": {
+        "fields": [],
+        "tag": "Meta"
+      },
+      "value": {
+        "decimals": 18,
+        "name": "OZ Demo",
+        "symbol": "OZD"
+      },
+      "value_type": "Metadata",
+      "key_shape": "[Symbol(\"Meta\")]",
+      "source": {
+        "contract": "CAJXGFIU32R2SF4BVXV2EB2XSSUPUBQMNXWJWB5GYS7WE76TFPPR7Q7P",
+        "ledger_entry": "instance_storage",
+        "last_modified_ledger": 0,
+        "live_until_ledger": 4095
+      },
+      "raw": {
+        "key_xdr": "AAAAEAAAAAEAAAABAAAADwAAAARNZXRh",
+        "val_xdr": "AAAAEQAAAAEAAAADAAAADwAAAAhkZWNpbWFscwAAAAMAAAASAAAADwAAAARuYW1lAAAADgAAAAdPWiBEZW1vAAAAAA8AAAAGc3ltYm9sAAAAAAAOAAAAA09aRAA="
+      }
+    },
+    {
+      "durability": "instance",
+      "status": "matched",
+      "name": "PausableStorageKey::Paused",
+      "lib": "stellar-contract-utils@0.8.0",
+      "schema_source": "embedded",
+      "key": {
+        "fields": [],
+        "tag": "Paused"
+      },
+      "value": true,
+      "value_type": "bool",
+      "key_shape": "[Symbol(\"Paused\")]",
+      "source": {
+        "contract": "CAJXGFIU32R2SF4BVXV2EB2XSSUPUBQMNXWJWB5GYS7WE76TFPPR7Q7P",
+        "ledger_entry": "instance_storage",
+        "last_modified_ledger": 0,
+        "live_until_ledger": 4095
+      },
+      "raw": {
+        "key_xdr": "AAAAEAAAAAEAAAABAAAADwAAAAZQYXVzZWQAAA==",
+        "val_xdr": "AAAAAAAAAAE="
+      }
+    }
+  ]
+}

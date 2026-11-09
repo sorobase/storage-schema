@@ -1,0 +1,1055 @@
+{
+  "latest_ledger": 65292097,
+  "instances": [
+    {
+      "contract": "CA6PUJLBYKZKUEKLZJMKBZLEKP2OTHANDEOWSFF44FTSYLKQPIICCJBE",
+      "executable": "wasm",
+      "wasm_hash": "d691135aade93ff0f7c229e009cde042130a05124cf7202b03d11246b4f9b473",
+      "storage_entries": 37,
+      "live_until_ledger": 67905760
+    }
+  ],
+  "summary": {
+    "total": 37,
+    "by_status": {
+      "ambiguous": 0,
+      "matched": 0,
+      "unknown": 37,
+      "value_mismatch": 0
+    }
+  },
+  "entries": [
+    {
+      "durability": "instance",
+      "status": "unknown",
+      "key": {
+        "vec": [
+          {
+            "symbol": "Admin"
+          }
+        ]
+      },
+      "value": {
+        "address": "GAV5FBMKD2ZF4X2MGWDNQYUP7KFL7MRM6HZBY7HKQLB4BRHSCCX5J6VS"
+      },
+      "key_shape": "[Symbol(\"Admin\")]",
+      "reason": "no storage schema available for this contract",
+      "source": {
+        "contract": "CA6PUJLBYKZKUEKLZJMKBZLEKP2OTHANDEOWSFF44FTSYLKQPIICCJBE",
+        "ledger_entry": "instance_storage",
+        "last_modified_ledger": 65292065,
+        "live_until_ledger": 67905760
+      },
+      "raw": {
+        "key_xdr": "AAAAEAAAAAEAAAABAAAADwAAAAVBZG1pbgAAAA==",
+        "val_xdr": "AAAAEgAAAAAAAAAAK9KFih6yXl9MNYbYYo/6ir+yLPHyHHzqgsPAxPIQr9Q="
+      }
+    },
+    {
+      "durability": "instance",
+      "status": "unknown",
+      "key": {
+        "vec": [
+          {
+            "symbol": "ConfigStorage"
+          }
+        ]
+      },
+      "value": {
+        "address": "CAUJNVN5DWOBCKLV5KPR3KRQBKRI7L2X7VOUAWF5FDISVSQNXCEYITPJ"
+      },
+      "key_shape": "[Symbol(\"ConfigStorage\")]",
+      "reason": "no storage schema available for this contract",
+      "source": {
+        "contract": "CA6PUJLBYKZKUEKLZJMKBZLEKP2OTHANDEOWSFF44FTSYLKQPIICCJBE",
+        "ledger_entry": "instance_storage",
+        "last_modified_ledger": 65292065,
+        "live_until_ledger": 67905760
+      },
+      "raw": {
+        "key_xdr": "AAAAEAAAAAEAAAABAAAADwAAAA1Db25maWdTdG9yYWdlAAAA",
+        "val_xdr": "AAAAEgAAAAEoltW9HZwRKXXqnx2qMAqij69X/V1AWL0o0SrKDbiJhA=="
+      }
+    },
+    {
+      "durability": "instance",
+      "status": "unknown",
+      "key": {
+        "vec": [
+          {
+            "symbol": "Decimals"
+          }
+        ]
+      },
+      "value": {
+        "vec": [
+          {
+            "u32": 7
+          },
+          {
+            "u32": 7
+          }
+        ]
+      },
+      "key_shape": "[Symbol(\"Decimals\")]",
+      "reason": "no storage schema available for this contract",
+      "source": {
+        "contract": "CA6PUJLBYKZKUEKLZJMKBZLEKP2OTHANDEOWSFF44FTSYLKQPIICCJBE",
+        "ledger_entry": "instance_storage",
+        "last_modified_ledger": 65292065,
+        "live_until_ledger": 67905760
+      },
+      "raw": {
+        "key_xdr": "AAAAEAAAAAEAAAABAAAADwAAAAhEZWNpbWFscw==",
+        "val_xdr": "AAAAEAAAAAEAAAACAAAAAwAAAAcAAAADAAAABw=="
+      }
+    },
+    {
+      "durability": "instance",
+      "status": "unknown",
+      "key": {
+        "vec": [
+          {
+            "symbol": "EmAdminTransferOwnershipDeadline"
+          }
+        ]
+      },
+      "value": {
+        "u64": "0"
+      },
+      "key_shape": "[Symbol(\"EmAdminTransferOwnershipDeadline\")]",
+      "reason": "no storage schema available for this contract",
+      "source": {
+        "contract": "CA6PUJLBYKZKUEKLZJMKBZLEKP2OTHANDEOWSFF44FTSYLKQPIICCJBE",
+        "ledger_entry": "instance_storage",
+        "last_modified_ledger": 65292065,
+        "live_until_ledger": 67905760
+      },
+      "raw": {
+        "key_xdr": "AAAAEAAAAAEAAAABAAAADwAAACBFbUFkbWluVHJhbnNmZXJPd25lcnNoaXBEZWFkbGluZQ==",
+        "val_xdr": "AAAABQAAAAAAAAAA"
+      }
+    },
+    {
+      "durability": "instance",
+      "status": "unknown",
+      "key": {
+        "vec": [
+          {
+            "symbol": "EmPauseAdmins"
+          }
+        ]
+      },
+      "value": {
+        "vec": [
+          {
+            "address": "GA6MVTGQDCJPP27IAMG6PSDTWOJYTD3NUTLR2W54ADBCBY7OID5YUDSI"
+          }
+        ]
+      },
+      "key_shape": "[Symbol(\"EmPauseAdmins\")]",
+      "reason": "no storage schema available for this contract",
+      "source": {
+        "contract": "CA6PUJLBYKZKUEKLZJMKBZLEKP2OTHANDEOWSFF44FTSYLKQPIICCJBE",
+        "ledger_entry": "instance_storage",
+        "last_modified_ledger": 65292065,
+        "live_until_ledger": 67905760
+      },
+      "raw": {
+        "key_xdr": "AAAAEAAAAAEAAAABAAAADwAAAA1FbVBhdXNlQWRtaW5zAAAA",
+        "val_xdr": "AAAAEAAAAAEAAAABAAAAEgAAAAAAAAAAPMrM0BiS9+voAw3nyHOzk4mPbaTXHVu8AMIg4+5A+4o="
+      }
+    },
+    {
+      "durability": "instance",
+      "status": "unknown",
+      "key": {
+        "vec": [
+          {
+            "symbol": "EmergencyAdmin"
+          }
+        ]
+      },
+      "value": {
+        "address": "GCGZ6E5RBUKLNB4VZ5RC65C4QMBSBJ3COVRRJCWAMCXJC36LB7YYWEKM"
+      },
+      "key_shape": "[Symbol(\"EmergencyAdmin\")]",
+      "reason": "no storage schema available for this contract",
+      "source": {
+        "contract": "CA6PUJLBYKZKUEKLZJMKBZLEKP2OTHANDEOWSFF44FTSYLKQPIICCJBE",
+        "ledger_entry": "instance_storage",
+        "last_modified_ledger": 65292065,
+        "live_until_ledger": 67905760
+      },
+      "raw": {
+        "key_xdr": "AAAAEAAAAAEAAAABAAAADwAAAA5FbWVyZ2VuY3lBZG1pbgAA",
+        "val_xdr": "AAAAEgAAAAAAAAAAjZ8TsQ0UtoeVz2IvdFyDAyCnYnVjFIrAYK6Rb8sP8Ys="
+      }
+    },
+    {
+      "durability": "instance",
+      "status": "unknown",
+      "key": {
+        "vec": [
+          {
+            "symbol": "ExcludedShares"
+          }
+        ]
+      },
+      "value": {
+        "u128": "0"
+      },
+      "key_shape": "[Symbol(\"ExcludedShares\")]",
+      "reason": "no storage schema available for this contract",
+      "source": {
+        "contract": "CA6PUJLBYKZKUEKLZJMKBZLEKP2OTHANDEOWSFF44FTSYLKQPIICCJBE",
+        "ledger_entry": "instance_storage",
+        "last_modified_ledger": 65292065,
+        "live_until_ledger": 67905760
+      },
+      "raw": {
+        "key_xdr": "AAAAEAAAAAEAAAABAAAADwAAAA5FeGNsdWRlZFNoYXJlcwAA",
+        "val_xdr": "AAAACQAAAAAAAAAAAAAAAAAAAAA="
+      }
+    },
+    {
+      "durability": "instance",
+      "status": "unknown",
+      "key": {
+        "vec": [
+          {
+            "symbol": "FeeFraction"
+          }
+        ]
+      },
+      "value": {
+        "u32": 10
+      },
+      "key_shape": "[Symbol(\"FeeFraction\")]",
+      "reason": "no storage schema available for this contract",
+      "source": {
+        "contract": "CA6PUJLBYKZKUEKLZJMKBZLEKP2OTHANDEOWSFF44FTSYLKQPIICCJBE",
+        "ledger_entry": "instance_storage",
+        "last_modified_ledger": 65292065,
+        "live_until_ledger": 67905760
+      },
+      "raw": {
+        "key_xdr": "AAAAEAAAAAEAAAABAAAADwAAAAtGZWVGcmFjdGlvbgA=",
+        "val_xdr": "AAAAAwAAAAo="
+      }
+    },
+    {
+      "durability": "instance",
+      "status": "unknown",
+      "key": {
+        "vec": [
+          {
+            "symbol": "FutureEmergencyAdmin"
+          }
+        ]
+      },
+      "value": {
+        "address": "GCGZ6E5RBUKLNB4VZ5RC65C4QMBSBJ3COVRRJCWAMCXJC36LB7YYWEKM"
+      },
+      "key_shape": "[Symbol(\"FutureEmergencyAdmin\")]",
+      "reason": "no storage schema available for this contract",
+      "source": {
+        "contract": "CA6PUJLBYKZKUEKLZJMKBZLEKP2OTHANDEOWSFF44FTSYLKQPIICCJBE",
+        "ledger_entry": "instance_storage",
+        "last_modified_ledger": 65292065,
+        "live_until_ledger": 67905760
+      },
+      "raw": {
+        "key_xdr": "AAAAEAAAAAEAAAABAAAADwAAABRGdXR1cmVFbWVyZ2VuY3lBZG1pbg==",
+        "val_xdr": "AAAAEgAAAAAAAAAAjZ8TsQ0UtoeVz2IvdFyDAyCnYnVjFIrAYK6Rb8sP8Ys="
+      }
+    },
+    {
+      "durability": "instance",
+      "status": "unknown",
+      "key": {
+        "vec": [
+          {
+            "symbol": "FutureWASM"
+          }
+        ]
+      },
+      "value": {
+        "bytes": "d691135aade93ff0f7c229e009cde042130a05124cf7202b03d11246b4f9b473"
+      },
+      "key_shape": "[Symbol(\"FutureWASM\")]",
+      "reason": "no storage schema available for this contract",
+      "source": {
+        "contract": "CA6PUJLBYKZKUEKLZJMKBZLEKP2OTHANDEOWSFF44FTSYLKQPIICCJBE",
+        "ledger_entry": "instance_storage",
+        "last_modified_ledger": 65292065,
+        "live_until_ledger": 67905760
+      },
+      "raw": {
+        "key_xdr": "AAAAEAAAAAEAAAABAAAADwAAAApGdXR1cmVXQVNNAAA=",
+        "val_xdr": "AAAADQAAACDWkRNarek/8PfCKeAJzeBCEwoFEkz3ICsD0RJGtPm0cw=="
+      }
+    },
+    {
+      "durability": "instance",
+      "status": "unknown",
+      "key": {
+        "vec": [
+          {
+            "symbol": "GaugeFutureWASM"
+          }
+        ]
+      },
+      "value": {
+        "bytes": "802127e382da37aa26d0be2ef16c053c0606ecceed9daea603d826ead3e168c7"
+      },
+      "key_shape": "[Symbol(\"GaugeFutureWASM\")]",
+      "reason": "no storage schema available for this contract",
+      "source": {
+        "contract": "CA6PUJLBYKZKUEKLZJMKBZLEKP2OTHANDEOWSFF44FTSYLKQPIICCJBE",
+        "ledger_entry": "instance_storage",
+        "last_modified_ledger": 65292065,
+        "live_until_ledger": 67905760
+      },
+      "raw": {
+        "key_xdr": "AAAAEAAAAAEAAAABAAAADwAAAA9HYXVnZUZ1dHVyZVdBU00A",
+        "val_xdr": "AAAADQAAACCAISfjgto3qibQvi7xbAU8Bgbszu2drqYD2Cbq0+Foxw=="
+      }
+    },
+    {
+      "durability": "instance",
+      "status": "unknown",
+      "key": {
+        "vec": [
+          {
+            "symbol": "IsKilledClaim"
+          }
+        ]
+      },
+      "value": {
+        "bool": false
+      },
+      "key_shape": "[Symbol(\"IsKilledClaim\")]",
+      "reason": "no storage schema available for this contract",
+      "source": {
+        "contract": "CA6PUJLBYKZKUEKLZJMKBZLEKP2OTHANDEOWSFF44FTSYLKQPIICCJBE",
+        "ledger_entry": "instance_storage",
+        "last_modified_ledger": 65292065,
+        "live_until_ledger": 67905760
+      },
+      "raw": {
+        "key_xdr": "AAAAEAAAAAEAAAABAAAADwAAAA1Jc0tpbGxlZENsYWltAAAA",
+        "val_xdr": "AAAAAAAAAAA="
+      }
+    },
+    {
+      "durability": "instance",
+      "status": "unknown",
+      "key": {
+        "vec": [
+          {
+            "symbol": "OperationsAdmin"
+          }
+        ]
+      },
+      "value": {
+        "address": "GBVQPX2LQ55HLRMLIWBEYVVQL3SZ5RFPRKYLRSLZU4XRIWAXW2KQIMMD"
+      },
+      "key_shape": "[Symbol(\"OperationsAdmin\")]",
+      "reason": "no storage schema available for this contract",
+      "source": {
+        "contract": "CA6PUJLBYKZKUEKLZJMKBZLEKP2OTHANDEOWSFF44FTSYLKQPIICCJBE",
+        "ledger_entry": "instance_storage",
+        "last_modified_ledger": 65292065,
+        "live_until_ledger": 67905760
+      },
+      "raw": {
+        "key_xdr": "AAAAEAAAAAEAAAABAAAADwAAAA9PcGVyYXRpb25zQWRtaW4A",
+        "val_xdr": "AAAAEgAAAAAAAAAAawffS4d6dcWLRYJMVrBe5Z7Er4qwuMl5py8UWBe2lQQ="
+      }
+    },
+    {
+      "durability": "instance",
+      "status": "unknown",
+      "key": {
+        "vec": [
+          {
+            "symbol": "Operator"
+          }
+        ]
+      },
+      "value": {
+        "address": "GCXYKA3BM574WC6TWESEDUGUJTNQ5SVCFMHWLQ634H5FTE7FYPV3JH3X"
+      },
+      "key_shape": "[Symbol(\"Operator\")]",
+      "reason": "no storage schema available for this contract",
+      "source": {
+        "contract": "CA6PUJLBYKZKUEKLZJMKBZLEKP2OTHANDEOWSFF44FTSYLKQPIICCJBE",
+        "ledger_entry": "instance_storage",
+        "last_modified_ledger": 65292065,
+        "live_until_ledger": 67905760
+      },
+      "raw": {
+        "key_xdr": "AAAAEAAAAAEAAAABAAAADwAAAAhPcGVyYXRvcg==",
+        "val_xdr": "AAAAEgAAAAAAAAAAr4UDYWd/ywvTsSRB0NRM2w7KoisPZcPb4fpZk+XD67Q="
+      }
+    },
+    {
+      "durability": "instance",
+      "status": "unknown",
+      "key": {
+        "vec": [
+          {
+            "symbol": "PauseAdmin"
+          }
+        ]
+      },
+      "value": {
+        "address": "GA6MA665XVKHTQUZVSMUKUPGT7OREJNCLAZ5ZEH5CXPKYTWFJKZ3YSEK"
+      },
+      "key_shape": "[Symbol(\"PauseAdmin\")]",
+      "reason": "no storage schema available for this contract",
+      "source": {
+        "contract": "CA6PUJLBYKZKUEKLZJMKBZLEKP2OTHANDEOWSFF44FTSYLKQPIICCJBE",
+        "ledger_entry": "instance_storage",
+        "last_modified_ledger": 65292065,
+        "live_until_ledger": 67905760
+      },
+      "raw": {
+        "key_xdr": "AAAAEAAAAAEAAAABAAAADwAAAApQYXVzZUFkbWluAAA=",
+        "val_xdr": "AAAAEgAAAAAAAAAAPMB73b1UecKZrJlFUeaf3RIlolgz3JD9Fd6sTsVKs7w="
+      }
+    },
+    {
+      "durability": "instance",
+      "status": "unknown",
+      "key": {
+        "vec": [
+          {
+            "symbol": "Plane"
+          }
+        ]
+      },
+      "value": {
+        "address": "CCABO2IQYDWRGGQ4DYQ73CV3ZFDBRZTEQNDDJMFT7JZO54CLS4RYJROY"
+      },
+      "key_shape": "[Symbol(\"Plane\")]",
+      "reason": "no storage schema available for this contract",
+      "source": {
+        "contract": "CA6PUJLBYKZKUEKLZJMKBZLEKP2OTHANDEOWSFF44FTSYLKQPIICCJBE",
+        "ledger_entry": "instance_storage",
+        "last_modified_ledger": 65292065,
+        "live_until_ledger": 67905760
+      },
+      "raw": {
+        "key_xdr": "AAAAEAAAAAEAAAABAAAADwAAAAVQbGFuZQAAAA==",
+        "val_xdr": "AAAAEgAAAAGAF2kQwO0TGhweIf2Ku8lGGOZkg0Y0sLP6cu7wS5cjhA=="
+      }
+    },
+    {
+      "durability": "instance",
+      "status": "unknown",
+      "key": {
+        "vec": [
+          {
+            "symbol": "PoolRewardConfig"
+          }
+        ]
+      },
+      "value": {
+        "map": [
+          {
+            "key": {
+              "symbol": "expired_at"
+            },
+            "val": {
+              "u64": "1793765729"
+            }
+          },
+          {
+            "key": {
+              "symbol": "tps"
+            },
+            "val": {
+              "u128": "4203018"
+            }
+          }
+        ]
+      },
+      "key_shape": "[Symbol(\"PoolRewardConfig\")]",
+      "reason": "no storage schema available for this contract",
+      "source": {
+        "contract": "CA6PUJLBYKZKUEKLZJMKBZLEKP2OTHANDEOWSFF44FTSYLKQPIICCJBE",
+        "ledger_entry": "instance_storage",
+        "last_modified_ledger": 65292065,
+        "live_until_ledger": 67905760
+      },
+      "raw": {
+        "key_xdr": "AAAAEAAAAAEAAAABAAAADwAAABBQb29sUmV3YXJkQ29uZmln",
+        "val_xdr": "AAAAEQAAAAEAAAACAAAADwAAAApleHBpcmVkX2F0AAAAAAAFAAAAAGrqsWEAAAAPAAAAA3RwcwAAAAAJAAAAAAAAAAAAAAAAAEAiCg=="
+      }
+    },
+    {
+      "durability": "instance",
+      "status": "unknown",
+      "key": {
+        "vec": [
+          {
+            "symbol": "PoolRewardData"
+          }
+        ]
+      },
+      "value": {
+        "map": [
+          {
+            "key": {
+              "symbol": "accumulated"
+            },
+            "val": {
+              "u128": "2199807454702214"
+            }
+          },
+          {
+            "key": {
+              "symbol": "block"
+            },
+            "val": {
+              "u64": "28274"
+            }
+          },
+          {
+            "key": {
+              "symbol": "claimed"
+            },
+            "val": {
+              "u128": "1272320512869944"
+            }
+          },
+          {
+            "key": {
+              "symbol": "last_time"
+            },
+            "val": {
+              "u64": "1793745584"
+            }
+          }
+        ]
+      },
+      "key_shape": "[Symbol(\"PoolRewardData\")]",
+      "reason": "no storage schema available for this contract",
+      "source": {
+        "contract": "CA6PUJLBYKZKUEKLZJMKBZLEKP2OTHANDEOWSFF44FTSYLKQPIICCJBE",
+        "ledger_entry": "instance_storage",
+        "last_modified_ledger": 65292065,
+        "live_until_ledger": 67905760
+      },
+      "raw": {
+        "key_xdr": "AAAAEAAAAAEAAAABAAAADwAAAA5Qb29sUmV3YXJkRGF0YQAA",
+        "val_xdr": "AAAAEQAAAAEAAAAEAAAADwAAAAthY2N1bXVsYXRlZAAAAAAJAAAAAAAAAAAAB9C2lelqhgAAAA8AAAAFYmxvY2sAAAAAAAAFAAAAAAAAbnIAAAAPAAAAB2NsYWltZWQAAAAACQAAAAAAAAAAAASFKzQ1xjgAAAAPAAAACWxhc3RfdGltZQAAAAAAAAUAAAAAaupisA=="
+      }
+    },
+    {
+      "durability": "instance",
+      "status": "unknown",
+      "key": {
+        "vec": [
+          {
+            "symbol": "ProtocolFeeA"
+          }
+        ]
+      },
+      "value": {
+        "u128": "30981593949"
+      },
+      "key_shape": "[Symbol(\"ProtocolFeeA\")]",
+      "reason": "no storage schema available for this contract",
+      "source": {
+        "contract": "CA6PUJLBYKZKUEKLZJMKBZLEKP2OTHANDEOWSFF44FTSYLKQPIICCJBE",
+        "ledger_entry": "instance_storage",
+        "last_modified_ledger": 65292065,
+        "live_until_ledger": 67905760
+      },
+      "raw": {
+        "key_xdr": "AAAAEAAAAAEAAAABAAAADwAAAAxQcm90b2NvbEZlZUE=",
+        "val_xdr": "AAAACQAAAAAAAAAAAAAABzalm10="
+      }
+    },
+    {
+      "durability": "instance",
+      "status": "unknown",
+      "key": {
+        "vec": [
+          {
+            "symbol": "ProtocolFeeB"
+          }
+        ]
+      },
+      "value": {
+        "u128": "4965528175"
+      },
+      "key_shape": "[Symbol(\"ProtocolFeeB\")]",
+      "reason": "no storage schema available for this contract",
+      "source": {
+        "contract": "CA6PUJLBYKZKUEKLZJMKBZLEKP2OTHANDEOWSFF44FTSYLKQPIICCJBE",
+        "ledger_entry": "instance_storage",
+        "last_modified_ledger": 65292065,
+        "live_until_ledger": 67905760
+      },
+      "raw": {
+        "key_xdr": "AAAAEAAAAAEAAAABAAAADwAAAAxQcm90b2NvbEZlZUI=",
+        "val_xdr": "AAAACQAAAAAAAAAAAAAAASf38m8="
+      }
+    },
+    {
+      "durability": "instance",
+      "status": "unknown",
+      "key": {
+        "vec": [
+          {
+            "symbol": "ProtocolFeeFraction"
+          }
+        ]
+      },
+      "value": {
+        "u32": 5000
+      },
+      "key_shape": "[Symbol(\"ProtocolFeeFraction\")]",
+      "reason": "no storage schema available for this contract",
+      "source": {
+        "contract": "CA6PUJLBYKZKUEKLZJMKBZLEKP2OTHANDEOWSFF44FTSYLKQPIICCJBE",
+        "ledger_entry": "instance_storage",
+        "last_modified_ledger": 65292065,
+        "live_until_ledger": 67905760
+      },
+      "raw": {
+        "key_xdr": "AAAAEAAAAAEAAAABAAAADwAAABNQcm90b2NvbEZlZUZyYWN0aW9uAA==",
+        "val_xdr": "AAAAAwAAE4g="
+      }
+    },
+    {
+      "durability": "instance",
+      "status": "unknown",
+      "key": {
+        "vec": [
+          {
+            "symbol": "ReserveA"
+          }
+        ]
+      },
+      "value": {
+        "u128": "99060948885900"
+      },
+      "key_shape": "[Symbol(\"ReserveA\")]",
+      "reason": "no storage schema available for this contract",
+      "source": {
+        "contract": "CA6PUJLBYKZKUEKLZJMKBZLEKP2OTHANDEOWSFF44FTSYLKQPIICCJBE",
+        "ledger_entry": "instance_storage",
+        "last_modified_ledger": 65292065,
+        "live_until_ledger": 67905760
+      },
+      "raw": {
+        "key_xdr": "AAAAEAAAAAEAAAABAAAADwAAAAhSZXNlcnZlQQ==",
+        "val_xdr": "AAAACQAAAAAAAAAAAABaGGyrYYw="
+      }
+    },
+    {
+      "durability": "instance",
+      "status": "unknown",
+      "key": {
+        "vec": [
+          {
+            "symbol": "ReserveB"
+          }
+        ]
+      },
+      "value": {
+        "u128": "16132364084975"
+      },
+      "key_shape": "[Symbol(\"ReserveB\")]",
+      "reason": "no storage schema available for this contract",
+      "source": {
+        "contract": "CA6PUJLBYKZKUEKLZJMKBZLEKP2OTHANDEOWSFF44FTSYLKQPIICCJBE",
+        "ledger_entry": "instance_storage",
+        "last_modified_ledger": 65292065,
+        "live_until_ledger": 67905760
+      },
+      "raw": {
+        "key_xdr": "AAAAEAAAAAEAAAABAAAADwAAAAhSZXNlcnZlQg==",
+        "val_xdr": "AAAACQAAAAAAAAAAAAAOrBvUpu8="
+      }
+    },
+    {
+      "durability": "instance",
+      "status": "unknown",
+      "key": {
+        "vec": [
+          {
+            "symbol": "ReservesSyncLedger"
+          }
+        ]
+      },
+      "value": {
+        "u32": 65292065
+      },
+      "key_shape": "[Symbol(\"ReservesSyncLedger\")]",
+      "reason": "no storage schema available for this contract",
+      "source": {
+        "contract": "CA6PUJLBYKZKUEKLZJMKBZLEKP2OTHANDEOWSFF44FTSYLKQPIICCJBE",
+        "ledger_entry": "instance_storage",
+        "last_modified_ledger": 65292065,
+        "live_until_ledger": 67905760
+      },
+      "raw": {
+        "key_xdr": "AAAAEAAAAAEAAAABAAAADwAAABJSZXNlcnZlc1N5bmNMZWRnZXIAAA==",
+        "val_xdr": "AAAAAwPkRyE="
+      }
+    },
+    {
+      "durability": "instance",
+      "status": "unknown",
+      "key": {
+        "vec": [
+          {
+            "symbol": "RewardBoostFeed"
+          }
+        ]
+      },
+      "value": {
+        "address": "CBKCROE56TU2FTT3C5CVN676PYVLTOQUQDHHH57GLWDY5VOKSCZPGOFN"
+      },
+      "key_shape": "[Symbol(\"RewardBoostFeed\")]",
+      "reason": "no storage schema available for this contract",
+      "source": {
+        "contract": "CA6PUJLBYKZKUEKLZJMKBZLEKP2OTHANDEOWSFF44FTSYLKQPIICCJBE",
+        "ledger_entry": "instance_storage",
+        "last_modified_ledger": 65292065,
+        "live_until_ledger": 67905760
+      },
+      "raw": {
+        "key_xdr": "AAAAEAAAAAEAAAABAAAADwAAAA9SZXdhcmRCb29zdEZlZWQA",
+        "val_xdr": "AAAAEgAAAAFUKLid9OmiznsXRVb7/n4quboUgM5z9+Zdh47VypCy8w=="
+      }
+    },
+    {
+      "durability": "instance",
+      "status": "unknown",
+      "key": {
+        "vec": [
+          {
+            "symbol": "RewardBoostToken"
+          }
+        ]
+      },
+      "value": {
+        "address": "CARCKZ66U4AI2545NS4RAF47QVEXG3PRRCDA52H4Q3FDRAGSMP4BRU3W"
+      },
+      "key_shape": "[Symbol(\"RewardBoostToken\")]",
+      "reason": "no storage schema available for this contract",
+      "source": {
+        "contract": "CA6PUJLBYKZKUEKLZJMKBZLEKP2OTHANDEOWSFF44FTSYLKQPIICCJBE",
+        "ledger_entry": "instance_storage",
+        "last_modified_ledger": 65292065,
+        "live_until_ledger": 67905760
+      },
+      "raw": {
+        "key_xdr": "AAAAEAAAAAEAAAABAAAADwAAABBSZXdhcmRCb29zdFRva2Vu",
+        "val_xdr": "AAAAEgAAAAEiJWfepwCNd51suRAXn4VJc23xiIYO6PyGyjiA0mP4GA=="
+      }
+    },
+    {
+      "durability": "instance",
+      "status": "unknown",
+      "key": {
+        "vec": [
+          {
+            "symbol": "RewardGaugesMap"
+          }
+        ]
+      },
+      "value": {
+        "map": [
+          {
+            "key": {
+              "address": "CAS3J7GYLGXMF6TDJBBYYSE3HQ6BBSMLNUQ34T6TZMYMW2EVH34XOWMA"
+            },
+            "val": {
+              "address": "CD5KQ4JXGM6F6LFT5WIDPBWVKLX4ZKX4RH6KSNQ3NTTTLUM7EQPDBGD3"
+            }
+          }
+        ]
+      },
+      "key_shape": "[Symbol(\"RewardGaugesMap\")]",
+      "reason": "no storage schema available for this contract",
+      "source": {
+        "contract": "CA6PUJLBYKZKUEKLZJMKBZLEKP2OTHANDEOWSFF44FTSYLKQPIICCJBE",
+        "ledger_entry": "instance_storage",
+        "last_modified_ledger": 65292065,
+        "live_until_ledger": 67905760
+      },
+      "raw": {
+        "key_xdr": "AAAAEAAAAAEAAAABAAAADwAAAA9SZXdhcmRHYXVnZXNNYXAA",
+        "val_xdr": "AAAAEQAAAAEAAAABAAAAEgAAAAEltPzYWa7C+mNIQ4xImzw8EMmLbSG+T9PLMMtolT75dwAAABIAAAAB+qhxNzM8Xyyz7ZA3htVS78yq/In8qTYbbOc10Z8kHjA="
+      }
+    },
+    {
+      "durability": "instance",
+      "status": "unknown",
+      "key": {
+        "vec": [
+          {
+            "symbol": "RewardToken"
+          }
+        ]
+      },
+      "value": {
+        "address": "CAUIKL3IYGMERDRUN6YSCLWVAKIFG5Q4YJHUKM4S4NJZQIA3BAS6OJPK"
+      },
+      "key_shape": "[Symbol(\"RewardToken\")]",
+      "reason": "no storage schema available for this contract",
+      "source": {
+        "contract": "CA6PUJLBYKZKUEKLZJMKBZLEKP2OTHANDEOWSFF44FTSYLKQPIICCJBE",
+        "ledger_entry": "instance_storage",
+        "last_modified_ledger": 65292065,
+        "live_until_ledger": 67905760
+      },
+      "raw": {
+        "key_xdr": "AAAAEAAAAAEAAAABAAAADwAAAAtSZXdhcmRUb2tlbgA=",
+        "val_xdr": "AAAAEgAAAAEohS9owZhIjjRvsSEu1QKQU3Ycwk9FM5LjU5ggGwgl5w=="
+      }
+    },
+    {
+      "durability": "instance",
+      "status": "unknown",
+      "key": {
+        "vec": [
+          {
+            "symbol": "Router"
+          }
+        ]
+      },
+      "value": {
+        "address": "CBQDHNBFBZYE4MKPWBSJOPIYLW4SFSXAXUTSXJN76GNKYVYPCKWC6QUK"
+      },
+      "key_shape": "[Symbol(\"Router\")]",
+      "reason": "no storage schema available for this contract",
+      "source": {
+        "contract": "CA6PUJLBYKZKUEKLZJMKBZLEKP2OTHANDEOWSFF44FTSYLKQPIICCJBE",
+        "ledger_entry": "instance_storage",
+        "last_modified_ledger": 65292065,
+        "live_until_ledger": 67905760
+      },
+      "raw": {
+        "key_xdr": "AAAAEAAAAAEAAAABAAAADwAAAAZSb3V0ZXIAAA==",
+        "val_xdr": "AAAAEgAAAAFgM7QlDnBOMU+wZJc9GF25IsrgvScrpb/xmqxXDxKsLw=="
+      }
+    },
+    {
+      "durability": "instance",
+      "status": "unknown",
+      "key": {
+        "vec": [
+          {
+            "symbol": "SystemFeeAdmin"
+          }
+        ]
+      },
+      "value": {
+        "address": "GB57YDVGLL2BAVOXHPXYCZR77J4MLPLMGJKFMTUKMHFI2AEGS4SGGW7N"
+      },
+      "key_shape": "[Symbol(\"SystemFeeAdmin\")]",
+      "reason": "no storage schema available for this contract",
+      "source": {
+        "contract": "CA6PUJLBYKZKUEKLZJMKBZLEKP2OTHANDEOWSFF44FTSYLKQPIICCJBE",
+        "ledger_entry": "instance_storage",
+        "last_modified_ledger": 65292065,
+        "live_until_ledger": 67905760
+      },
+      "raw": {
+        "key_xdr": "AAAAEAAAAAEAAAABAAAADwAAAA5TeXN0ZW1GZWVBZG1pbgAA",
+        "val_xdr": "AAAAEgAAAAAAAAAAe/wOplr0EFXXO++BZj/6eMW9bDJUVk6KYcqNAIaXJGM="
+      }
+    },
+    {
+      "durability": "instance",
+      "status": "unknown",
+      "key": {
+        "vec": [
+          {
+            "symbol": "TokenA"
+          }
+        ]
+      },
+      "value": {
+        "address": "CAS3J7GYLGXMF6TDJBBYYSE3HQ6BBSMLNUQ34T6TZMYMW2EVH34XOWMA"
+      },
+      "key_shape": "[Symbol(\"TokenA\")]",
+      "reason": "no storage schema available for this contract",
+      "source": {
+        "contract": "CA6PUJLBYKZKUEKLZJMKBZLEKP2OTHANDEOWSFF44FTSYLKQPIICCJBE",
+        "ledger_entry": "instance_storage",
+        "last_modified_ledger": 65292065,
+        "live_until_ledger": 67905760
+      },
+      "raw": {
+        "key_xdr": "AAAAEAAAAAEAAAABAAAADwAAAAZUb2tlbkEAAA==",
+        "val_xdr": "AAAAEgAAAAEltPzYWa7C+mNIQ4xImzw8EMmLbSG+T9PLMMtolT75dw=="
+      }
+    },
+    {
+      "durability": "instance",
+      "status": "unknown",
+      "key": {
+        "vec": [
+          {
+            "symbol": "TokenB"
+          }
+        ]
+      },
+      "value": {
+        "address": "CCW67TSZV3SSS2HXMBQ5JFGCKJNXKZM7UQUWUZPUTHXSTZLEO7SJMI75"
+      },
+      "key_shape": "[Symbol(\"TokenB\")]",
+      "reason": "no storage schema available for this contract",
+      "source": {
+        "contract": "CA6PUJLBYKZKUEKLZJMKBZLEKP2OTHANDEOWSFF44FTSYLKQPIICCJBE",
+        "ledger_entry": "instance_storage",
+        "last_modified_ledger": 65292065,
+        "live_until_ledger": 67905760
+      },
+      "raw": {
+        "key_xdr": "AAAAEAAAAAEAAAABAAAADwAAAAZUb2tlbkIAAA==",
+        "val_xdr": "AAAAEgAAAAGt785ZruUpaPdgYdSUwlJbdWWfpClqZfSZ7ynlZHfklg=="
+      }
+    },
+    {
+      "durability": "instance",
+      "status": "unknown",
+      "key": {
+        "vec": [
+          {
+            "symbol": "TokenFutureWASM"
+          }
+        ]
+      },
+      "value": {
+        "bytes": "72eb5d52c532e78ccc6c8a7f8523c458e03764074717172f69c2539e754ce624"
+      },
+      "key_shape": "[Symbol(\"TokenFutureWASM\")]",
+      "reason": "no storage schema available for this contract",
+      "source": {
+        "contract": "CA6PUJLBYKZKUEKLZJMKBZLEKP2OTHANDEOWSFF44FTSYLKQPIICCJBE",
+        "ledger_entry": "instance_storage",
+        "last_modified_ledger": 65292065,
+        "live_until_ledger": 67905760
+      },
+      "raw": {
+        "key_xdr": "AAAAEAAAAAEAAAABAAAADwAAAA9Ub2tlbkZ1dHVyZVdBU00A",
+        "val_xdr": "AAAADQAAACBy611SxTLnjMxsin+FI8RY4DdkB0cXFy9pwlOedUzmJA=="
+      }
+    },
+    {
+      "durability": "instance",
+      "status": "unknown",
+      "key": {
+        "vec": [
+          {
+            "symbol": "TokenShare"
+          }
+        ]
+      },
+      "value": {
+        "address": "CAVKLYY4RWFQBRA2YI5GTGGXKUKJQI3JLAHDGXMS7L5RDH6X6A47NMOZ"
+      },
+      "key_shape": "[Symbol(\"TokenShare\")]",
+      "reason": "no storage schema available for this contract",
+      "source": {
+        "contract": "CA6PUJLBYKZKUEKLZJMKBZLEKP2OTHANDEOWSFF44FTSYLKQPIICCJBE",
+        "ledger_entry": "instance_storage",
+        "last_modified_ledger": 65292065,
+        "live_until_ledger": 67905760
+      },
+      "raw": {
+        "key_xdr": "AAAAEAAAAAEAAAABAAAADwAAAApUb2tlblNoYXJlAAA=",
+        "val_xdr": "AAAAEgAAAAEqpeMcjYsAxBrCOmmY11UUmCNpWA4zXZL6+xGf1/A59g=="
+      }
+    },
+    {
+      "durability": "instance",
+      "status": "unknown",
+      "key": {
+        "vec": [
+          {
+            "symbol": "TotalShares"
+          }
+        ]
+      },
+      "value": {
+        "u128": "36211640049740"
+      },
+      "key_shape": "[Symbol(\"TotalShares\")]",
+      "reason": "no storage schema available for this contract",
+      "source": {
+        "contract": "CA6PUJLBYKZKUEKLZJMKBZLEKP2OTHANDEOWSFF44FTSYLKQPIICCJBE",
+        "ledger_entry": "instance_storage",
+        "last_modified_ledger": 65292065,
+        "live_until_ledger": 67905760
+      },
+      "raw": {
+        "key_xdr": "AAAAEAAAAAEAAAABAAAADwAAAAtUb3RhbFNoYXJlcwA=",
+        "val_xdr": "AAAACQAAAAAAAAAAAAAg7y3xIEw="
+      }
+    },
+    {
+      "durability": "instance",
+      "status": "unknown",
+      "key": {
+        "vec": [
+          {
+            "symbol": "UpgradeDeadline"
+          }
+        ]
+      },
+      "value": {
+        "u64": "0"
+      },
+      "key_shape": "[Symbol(\"UpgradeDeadline\")]",
+      "reason": "no storage schema available for this contract",
+      "source": {
+        "contract": "CA6PUJLBYKZKUEKLZJMKBZLEKP2OTHANDEOWSFF44FTSYLKQPIICCJBE",
+        "ledger_entry": "instance_storage",
+        "last_modified_ledger": 65292065,
+        "live_until_ledger": 67905760
+      },
+      "raw": {
+        "key_xdr": "AAAAEAAAAAEAAAABAAAADwAAAA9VcGdyYWRlRGVhZGxpbmUA",
+        "val_xdr": "AAAABQAAAAAAAAAA"
+      }
+    },
+    {
+      "durability": "instance",
+      "status": "unknown",
+      "key": {
+        "vec": [
+          {
+            "symbol": "WorkingSupply"
+          }
+        ]
+      },
+      "value": {
+        "u128": "44435789537970"
+      },
+      "key_shape": "[Symbol(\"WorkingSupply\")]",
+      "reason": "no storage schema available for this contract",
+      "source": {
+        "contract": "CA6PUJLBYKZKUEKLZJMKBZLEKP2OTHANDEOWSFF44FTSYLKQPIICCJBE",
+        "ledger_entry": "instance_storage",
+        "last_modified_ledger": 65292065,
+        "live_until_ledger": 67905760
+      },
+      "raw": {
+        "key_xdr": "AAAAEAAAAAEAAAABAAAADwAAAA1Xb3JraW5nU3VwcGx5AAAA",
+        "val_xdr": "AAAACQAAAAAAAAAAAAAoagNzYrI="
+      }
+    }
+  ]
+}

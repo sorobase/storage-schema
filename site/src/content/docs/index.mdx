@@ -1,0 +1,80 @@
+---
+title: storage-schema
+description: Contracts describe the storage they write, so explorers and indexers can name and type raw ledger entries.
+template: splash
+---
+{/* SPDX-License-Identifier: Apache-2.0 */}
+import { LinkCard, CardGrid } from '@astrojs/starlight/components';
+import Hero from '../../components/Hero.astro';
+import ProvenanceChip from '../../components/kit/ProvenanceChip.astro';
+import scenarios from '../../data/scenarios.json';
+import token from '../../data/inspect-token.json';
+import size from '../../data/size.json';
+import prov from '../../data/provenance.json';
+
+export const fmt = (n) => n.toLocaleString('en-US');
+export const tokenPair = size.reports.find((r) => r.wasm === 'ssc_demo_token.raw.wasm');
+export const words = { matched: 'Matched', ambiguous: 'Ambiguous', value_mismatch: 'Value mismatch', unknown: 'Unknown' };
+
+<Hero />
+
+## The gap
+
+A Soroban contract-data ledger entry is a key `SCVal`, a durability and a value `SCVal`. It carries no name and no type. The callable interface in `contractspecv0` does not help: since soroban-sdk 28, spec shaking removes every type that only appears in storage. So an explorer, an indexer, a wallet or Lab that reads a contract's storage sees `[Symbol("Balance"), Address] -> I128` and has to guess.
+
+The open question in [rs-soroban-sdk#1818](https://github.com/stellar/rs-soroban-sdk/issues/1818) (2026-04-28) is exactly this: *how does an off-chain consumer looking at a contract storage ledger entry determine which contract type in the storage schema should apply?* This project is one concrete answer, with a reference implementation and measurements.
+
+## What it is
+
+- **A format.** A Wasm custom section, `contractstoragev0`, next to `contractspecv0`. It lists the keys a contract writes (exact, tagged or typed patterns), their durability and value types, and carries the type definitions that spec shaking removed. The host never reads it. [Section format](/reference/format/)
+- **A rule for mapping entries.** Durability partitions, the most specific pattern wins, and the decoder answers with one of four statuses. It never guesses. [Matching and statuses](/reference/matching/)
+- **Tools.** Attribute macros that emit the section (`#[storage_schema]`, `#[storage_key]`, `storage_schema_extern!`), a sidecar JSON for contracts that never adopt them (including the Stellar Asset Contract, which has no wasm), post-build `inject`/`strip`, a lint for key collisions, a decoder, a read-only RPC client, a CLI, and the same decoder compiled to WebAssembly for this site.
+
+The whole change to the soroban-examples token is one attribute per key variant:
+
+```rust
+#[storage_schema]
+#[derive(Clone)]
+#[contracttype]
+pub enum DataKey {
+    #[storage(temporary, value = AllowanceValue)] Allowance(AllowanceDataKey),
+    #[storage(persistent, value = i128)]          Balance(Address),
+    #[storage(skip)]                              State(Address),
+    #[storage(instance, value = Address)]         Admin,
+}
+```
+
+After `stellar contract build` (CLI 25.2.0, spec shaking on), that wasm carries {token.contractstoragev0.keys.length} key entries and {token.contractstoragev0.types.length} type definitions ({token.contractstoragev0.types.join(', ')}). Its `contractspecv0` kept {token.contractspecv0.udts.length} user types. The section costs {fmt(tokenPair.contractstoragev0_section_bytes)} bytes, and the code is byte-identical to a build without it <ProvenanceChip kind="fixture" date={size.measured.slice(0, 10)} source="scripts/build-demos.sh" href="/size/" note={size.method} />.
+
+## Four answers, never a guess
+
+Every scenario below runs in the [playground](/playground/) with the decoder compiled to WebAssembly, and must equal the native CLI's golden output. Between them they produce all four statuses on real ledger entries.
+
+<div class="ss-table-wrap not-content">
+<table class="ss-table ss-scen-table">
+  <thead><tr><th>Scenario</th><th>Source</th><th class="ss-num">Entries</th><th>Result</th></tr></thead>
+  <tbody>
+    {scenarios.map((s) => (
+      <tr>
+        <td><a href={`/playground/?s=${s.id}`}>{s.title}</a></td>
+        <td>{s.provenance.kind === 'recorded' ? `Mainnet, ledger ${fmt(s.provenance.ledger)}` : 'Soroban test host'}</td>
+        <td class="ss-tabular">{fmt(s.summary.total)}</td>
+        <td>{Object.entries(s.summary.by_status).filter(([, n]) => n > 0).map(([k, n]) => `${fmt(n)} ${words[k].toLowerCase()}`).join(', ')}</td>
+      </tr>
+    ))}
+  </tbody>
+</table>
+</div>
+
+Mainnet rows: <ProvenanceChip kind="recorded" ledger={prov.mainnet.ledger_at_start} date={prov.mainnet.captured.slice(0, 10)} source={prov.mainnet.rpc} note="ledger at the start of the capture; each response's own latestLedger is shown in the table" />. Test-host rows: <ProvenanceChip kind="fixture" date={prov.testhost.captured.slice(0, 10)} source="soroban test host, scripts/capture-testhost.sh" />. Rows titled "Deliberate" combine real inputs on purpose to show a status.
+
+## Why Stellar, and why a separate section
+
+The idea of putting the layout in the deployed artefact comes from the #1818 thread itself: storage types do not belong in the callable spec, and a separate custom section was suggested there. Solidity's `storageLayout` and Anchor's IDL keep layouts beside the build, not in it. A section travels with the wasm hash, so any reader that can fetch a contract's code can find its schema, with no registry. It is informational and opt-in: a contract without it is valid and decodes as `unknown`, and a contract that never adopts the macros can still get a schema post-build or through a sidecar.
+
+<CardGrid>
+  <LinkCard title="Playground" description="Decode recorded mainnet entries, your own files, or a live mainnet contract, in this browser." href="/playground/" />
+  <LinkCard title="Annotate a contract" description="The macros, what they emit, and how to check the result." href="/guides/annotate/" />
+  <LinkCard title="Status and limits" description="What works today, what is not built, and which gates apply." href="/status/" />
+  <LinkCard title="SEP draft" description="The format written as a SEP. Draft, not submitted." href="/sep-draft/" />
+</CardGrid>

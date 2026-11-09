@@ -1,0 +1,252 @@
+{
+  "latest_ledger": 65292086,
+  "instances": [
+    {
+      "contract": "CCW67TSZV3SSS2HXMBQ5JFGCKJNXKZM7UQUWUZPUTHXSTZLEO7SJMI75",
+      "executable": "stellar_asset",
+      "storage_entries": 3,
+      "live_until_ledger": 67326585
+    }
+  ],
+  "summary": {
+    "total": 8,
+    "by_status": {
+      "ambiguous": 0,
+      "matched": 8,
+      "unknown": 0,
+      "value_mismatch": 0
+    }
+  },
+  "entries": [
+    {
+      "durability": "instance",
+      "status": "matched",
+      "name": "METADATA",
+      "lib": "soroban-env-host@28.0.2",
+      "schema_source": "sidecar:stellar-asset-contract.storage.json",
+      "key": "METADATA",
+      "value": {
+        "decimal": 7,
+        "name": "USDC:GA5ZSEJYB37JRC5AVCIA5MOP4RHTM335X2KGX3IHOJAPP5RE34K4KZVN",
+        "symbol": "USDC"
+      },
+      "value_type": "StellarAssetContractMetadata",
+      "key_shape": "Symbol(\"METADATA\")",
+      "source": {
+        "contract": "CCW67TSZV3SSS2HXMBQ5JFGCKJNXKZM7UQUWUZPUTHXSTZLEO7SJMI75",
+        "ledger_entry": "instance_storage",
+        "last_modified_ledger": 62313360,
+        "live_until_ledger": 67326585
+      },
+      "raw": {
+        "key_xdr": "AAAADwAAAAhNRVRBREFUQQ==",
+        "val_xdr": "AAAAEQAAAAEAAAADAAAADwAAAAdkZWNpbWFsAAAAAAMAAAAHAAAADwAAAARuYW1lAAAADgAAAD1VU0RDOkdBNVpTRUpZQjM3SlJDNUFWQ0lBNU1PUDRSSFRNMzM1WDJLR1gzSUhPSkFQUDVSRTM0SzRLWlZOAAAAAAAADwAAAAZzeW1ib2wAAAAAAA4AAAAEVVNEQw=="
+      }
+    },
+    {
+      "durability": "instance",
+      "status": "matched",
+      "name": "InstanceDataKey::Admin",
+      "lib": "soroban-env-host@28.0.2",
+      "schema_source": "sidecar:stellar-asset-contract.storage.json",
+      "key": {
+        "fields": [],
+        "tag": "Admin"
+      },
+      "value": "CCPLJV7AKKFIE4LXFVUWZXDI2HNLEC7U3CQHAMVDLYHQFGMGVTCR4D5W",
+      "value_type": "Address",
+      "key_shape": "[Symbol(\"Admin\")]",
+      "source": {
+        "contract": "CCW67TSZV3SSS2HXMBQ5JFGCKJNXKZM7UQUWUZPUTHXSTZLEO7SJMI75",
+        "ledger_entry": "instance_storage",
+        "last_modified_ledger": 62313360,
+        "live_until_ledger": 67326585
+      },
+      "raw": {
+        "key_xdr": "AAAAEAAAAAEAAAABAAAADwAAAAVBZG1pbgAAAA==",
+        "val_xdr": "AAAAEgAAAAGetNfgUoqCcXctaWzcaNHasgv02KBwMqNeDwKZhqzFHg=="
+      }
+    },
+    {
+      "durability": "instance",
+      "status": "matched",
+      "name": "InstanceDataKey::AssetInfo",
+      "lib": "soroban-env-host@28.0.2",
+      "schema_source": "sidecar:stellar-asset-contract.storage.json",
+      "key": {
+        "fields": [],
+        "tag": "AssetInfo"
+      },
+      "value": {
+        "AlphaNum4": [
+          {
+            "asset_code": "USDC",
+            "issuer": "3b9911380efe988ba0a8900eb1cfe44f366f7dbe946bed077240f7f624df15c5"
+          }
+        ]
+      },
+      "value_type": "AssetInfo",
+      "key_shape": "[Symbol(\"AssetInfo\")]",
+      "source": {
+        "contract": "CCW67TSZV3SSS2HXMBQ5JFGCKJNXKZM7UQUWUZPUTHXSTZLEO7SJMI75",
+        "ledger_entry": "instance_storage",
+        "last_modified_ledger": 62313360,
+        "live_until_ledger": 67326585
+      },
+      "raw": {
+        "key_xdr": "AAAAEAAAAAEAAAABAAAADwAAAAlBc3NldEluZm8AAAA=",
+        "val_xdr": "AAAAEAAAAAEAAAACAAAADwAAAAlBbHBoYU51bTQAAAAAAAARAAAAAQAAAAIAAAAPAAAACmFzc2V0X2NvZGUAAAAAAA4AAAAEVVNEQwAAAA8AAAAGaXNzdWVyAAAAAAANAAAAIDuZETgO/piLoKiQDrHP5E82b32+lGvtB3JA9/Yk3xXF"
+      }
+    },
+    {
+      "durability": "persistent",
+      "status": "matched",
+      "name": "DataKey::Balance",
+      "lib": "soroban-env-host@28.0.2",
+      "schema_source": "sidecar:stellar-asset-contract.storage.json",
+      "key": {
+        "fields": [
+          "CA6PUJLBYKZKUEKLZJMKBZLEKP2OTHANDEOWSFF44FTSYLKQPIICCJBE"
+        ],
+        "tag": "Balance"
+      },
+      "value": {
+        "amount": "16137329613150",
+        "authorized": true,
+        "clawback": false
+      },
+      "value_type": "BalanceValue",
+      "key_shape": "[Symbol(\"Balance\"), Address]",
+      "source": {
+        "contract": "CCW67TSZV3SSS2HXMBQ5JFGCKJNXKZM7UQUWUZPUTHXSTZLEO7SJMI75",
+        "ledger_entry": "contract_data",
+        "last_modified_ledger": 65292065,
+        "live_until_ledger": 65793287
+      },
+      "raw": {
+        "key_xdr": "AAAAEAAAAAEAAAACAAAADwAAAAdCYWxhbmNlAAAAABIAAAABPPolYcKyqhFLylig5WRT9OmcDRkdaRS84WcsLVB6ECE=",
+        "val_xdr": "AAAAEQAAAAEAAAADAAAADwAAAAZhbW91bnQAAAAAAAoAAAAAAAAAAAAADq1DzJleAAAADwAAAAphdXRob3JpemVkAAAAAAAAAAAAAQAAAA8AAAAIY2xhd2JhY2sAAAAAAAAAAA=="
+      }
+    },
+    {
+      "durability": "persistent",
+      "status": "matched",
+      "name": "DataKey::Balance",
+      "lib": "soroban-env-host@28.0.2",
+      "schema_source": "sidecar:stellar-asset-contract.storage.json",
+      "key": {
+        "fields": [
+          "CAJJZSGMMM3PD7N33TAPHGBUGTB43OC73HVIK2L2G6BNGGGYOSSYBXBD"
+        ],
+        "tag": "Balance"
+      },
+      "value": {
+        "amount": "118309268721049",
+        "authorized": true,
+        "clawback": false
+      },
+      "value_type": "BalanceValue",
+      "key_shape": "[Symbol(\"Balance\"), Address]",
+      "source": {
+        "contract": "CCW67TSZV3SSS2HXMBQ5JFGCKJNXKZM7UQUWUZPUTHXSTZLEO7SJMI75",
+        "ledger_entry": "contract_data",
+        "last_modified_ledger": 65292088,
+        "live_until_ledger": 65805293
+      },
+      "raw": {
+        "key_xdr": "AAAAEAAAAAEAAAACAAAADwAAAAdCYWxhbmNlAAAAABIAAAABEpzIzGM28f273MDzmDQ0w824X9nqhWl6N4LTGNh0pYA=",
+        "val_xdr": "AAAAEQAAAAEAAAADAAAADwAAAAZhbW91bnQAAAAAAAoAAAAAAAAAAAAAa5oF742ZAAAADwAAAAphdXRob3JpemVkAAAAAAAAAAAAAQAAAA8AAAAIY2xhd2JhY2sAAAAAAAAAAA=="
+      }
+    },
+    {
+      "durability": "persistent",
+      "status": "matched",
+      "name": "DataKey::Balance",
+      "lib": "soroban-env-host@28.0.2",
+      "schema_source": "sidecar:stellar-asset-contract.storage.json",
+      "key": {
+        "fields": [
+          "CBFMLBOP6VD3NOG6EKCSRSITLWEC6ISISBLVPXMINWN75YHB3YLOTAKH"
+        ],
+        "tag": "Balance"
+      },
+      "value": {
+        "amount": "1739800000",
+        "authorized": true,
+        "clawback": false
+      },
+      "value_type": "BalanceValue",
+      "key_shape": "[Symbol(\"Balance\"), Address]",
+      "source": {
+        "contract": "CCW67TSZV3SSS2HXMBQ5JFGCKJNXKZM7UQUWUZPUTHXSTZLEO7SJMI75",
+        "ledger_entry": "contract_data",
+        "last_modified_ledger": 65288245,
+        "live_until_ledger": 65824902
+      },
+      "raw": {
+        "key_xdr": "AAAAEAAAAAEAAAACAAAADwAAAAdCYWxhbmNlAAAAABIAAAABSsWFz/VHtrjeIoUoyRNdiC8iSJBXV92IbZv+4OHeFuk=",
+        "val_xdr": "AAAAEQAAAAEAAAADAAAADwAAAAZhbW91bnQAAAAAAAoAAAAAAAAAAAAAAABnsz3AAAAADwAAAAphdXRob3JpemVkAAAAAAAAAAAAAQAAAA8AAAAIY2xhd2JhY2sAAAAAAAAAAA=="
+      }
+    },
+    {
+      "durability": "persistent",
+      "status": "matched",
+      "name": "DataKey::Balance",
+      "lib": "soroban-env-host@28.0.2",
+      "schema_source": "sidecar:stellar-asset-contract.storage.json",
+      "key": {
+        "fields": [
+          "CBQDHNBFBZYE4MKPWBSJOPIYLW4SFSXAXUTSXJN76GNKYVYPCKWC6QUK"
+        ],
+        "tag": "Balance"
+      },
+      "value": {
+        "amount": "2",
+        "authorized": true,
+        "clawback": false
+      },
+      "value_type": "BalanceValue",
+      "key_shape": "[Symbol(\"Balance\"), Address]",
+      "source": {
+        "contract": "CCW67TSZV3SSS2HXMBQ5JFGCKJNXKZM7UQUWUZPUTHXSTZLEO7SJMI75",
+        "ledger_entry": "contract_data",
+        "last_modified_ledger": 65292065,
+        "live_until_ledger": 65794828
+      },
+      "raw": {
+        "key_xdr": "AAAAEAAAAAEAAAACAAAADwAAAAdCYWxhbmNlAAAAABIAAAABYDO0JQ5wTjFPsGSXPRhduSLK4L0nK6W/8ZqsVw8SrC8=",
+        "val_xdr": "AAAAEQAAAAEAAAADAAAADwAAAAZhbW91bnQAAAAAAAoAAAAAAAAAAAAAAAAAAAACAAAADwAAAAphdXRob3JpemVkAAAAAAAAAAAAAQAAAA8AAAAIY2xhd2JhY2sAAAAAAAAAAA=="
+      }
+    },
+    {
+      "durability": "persistent",
+      "status": "matched",
+      "name": "DataKey::Balance",
+      "lib": "soroban-env-host@28.0.2",
+      "schema_source": "sidecar:stellar-asset-contract.storage.json",
+      "key": {
+        "fields": [
+          "CBZL2IH7F6BIDAA3WBNXYKIXSATJGMSW7K5P5MJ6STX5RXN47TZJDF5T"
+        ],
+        "tag": "Balance"
+      },
+      "value": {
+        "amount": "87372600",
+        "authorized": true,
+        "clawback": false
+      },
+      "value_type": "BalanceValue",
+      "key_shape": "[Symbol(\"Balance\"), Address]",
+      "source": {
+        "contract": "CCW67TSZV3SSS2HXMBQ5JFGCKJNXKZM7UQUWUZPUTHXSTZLEO7SJMI75",
+        "ledger_entry": "contract_data",
+        "last_modified_ledger": 65292092,
+        "live_until_ledger": 65808286
+      },
+      "raw": {
+        "key_xdr": "AAAAEAAAAAEAAAACAAAADwAAAAdCYWxhbmNlAAAAABIAAAABcr0g/y+CgYAbsFt8KReQJpMyVvq6/rE+lO/Y3bz88pE=",
+        "val_xdr": "AAAAEQAAAAEAAAADAAAADwAAAAZhbW91bnQAAAAAAAoAAAAAAAAAAAAAAAAFNTM4AAAADwAAAAphdXRob3JpemVkAAAAAAAAAAAAAQAAAA8AAAAIY2xhd2JhY2sAAAAAAAAAAA=="
+      }
+    }
+  ]
+}

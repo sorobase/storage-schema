@@ -1,0 +1,10 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32" role="img" aria-label="SSC">
+  <!-- SPDX-License-Identifier: Apache-2.0 -->
+  <style>
+    rect { fill: #f6e6f0; stroke: #a8337f; }
+    text { fill: #8a2166; }
+    @media (prefers-color-scheme: dark) { rect { fill: #3a1b30; stroke: #d36fb0; } text { fill: #f0a8d5; } }
+  </style>
+  <rect x="1.5" y="1.5" width="29" height="29" rx="6" stroke-width="1.5"/>
+  <text x="16" y="20.5" font-family="ui-monospace, Menlo, Consolas, monospace" font-size="11" font-weight="700" text-anchor="middle">SSC</text>
+</svg>

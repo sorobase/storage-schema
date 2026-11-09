@@ -1,0 +1,14 @@
+---
+title: Playground
+description: Decode Soroban contract-data entries into named, typed records in your browser, from recorded scenarios, your own files, or a live read-only mainnet lookup.
+tableOfContents: false
+---
+{/* SPDX-License-Identifier: Apache-2.0 */}
+import Playground from '../../components/Playground.astro';
+import GateBadge from '../../components/kit/GateBadge.astro';
+
+<GateBadge kind="mainnet-read-only" /> <GateBadge kind="unaudited" /> <GateBadge kind="demo-only" label="Demo contracts: demo-only" description="The demo contracts are test subjects built for this project. Do not deploy them with value." />
+
+The decoder below is the project's Rust core compiled to WebAssembly. It is the same code as the CLI, and each scenario's result is compared with the CLI's golden file. Open any entry for its reason, candidates, declared type and raw XDR.
+
+<Playground />

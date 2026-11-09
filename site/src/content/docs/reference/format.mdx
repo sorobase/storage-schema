@@ -1,0 +1,54 @@
+---
+title: Section format
+description: The contractstoragev0 Wasm custom section - placement, XDR, type entries and de-duplication. Normative text is SPEC.md sections 3 and 5.
+---
+{/* SPDX-License-Identifier: Apache-2.0 */}
+
+Normative source: `SPEC.md` sections 3 to 6 in the project. The wire layout is pinned by the test `model::tests::wire_layout_is_stable`; changing it means a new section name (`contractstoragev1`).
+
+## Placement
+
+- Name `contractstoragev0`. The version is in the name, as with `contractspecv0`. Readers ignore names they do not know.
+- Content: zero or more `SCStorageEntry` XDR values, concatenated, with no header. The stream ends at the end of the section.
+- A module may contain several such sections (the linker merges statics from several crates; `inject` can append). Readers concatenate them in module order and must report a stream that does not decode as malformed, never decode a prefix.
+- The section is informational. The host never reads it and contract behaviour does not change.
+
+## XDR
+
+```c
+// Reuses SCSpecTypeDef, SCSpecEntry and SCVal from Stellar-contract-spec.x / Stellar-contract.x.
+enum SCStorageEntryKind  { SC_STORAGE_ENTRY_KEY_V0 = 0, SC_STORAGE_ENTRY_TYPE_V0 = 1 };
+enum SCStorageDurability { SC_STORAGE_TEMPORARY = 0, SC_STORAGE_PERSISTENT = 1, SC_STORAGE_INSTANCE = 2 };
+enum SCStorageKeyKind    { SC_STORAGE_KEY_EXACT = 0, SC_STORAGE_KEY_TAGGED = 1, SC_STORAGE_KEY_TYPED = 2 };
+
+struct SCStorageKeyFieldV0  { string name<30>; SCSpecTypeDef type; };
+struct SCStorageKeyTaggedV0 { string tag<32>; SCStorageKeyFieldV0 fields<>; };
+
+union SCStorageKey switch (SCStorageKeyKind kind) {
+case SC_STORAGE_KEY_EXACT:  SCVal exact;                 // key == value
+case SC_STORAGE_KEY_TAGGED: SCStorageKeyTaggedV0 tagged; // key == Vec[Symbol(tag), f1 .. fn]
+case SC_STORAGE_KEY_TYPED:  SCSpecTypeDef typed;         // key is any value of the type
+};
+
+struct SCStorageKeyEntryV0 {
+    string doc<1024>;
+    string lib<80>;      // writer of the entry: "" = the contract; else crate[@version]
+    string name<60>;     // display name, e.g. "DataKey::Balance"
+    SCStorageDurability durability;
+    SCStorageKey key;
+    SCSpecTypeDef value;
+};
+
+union SCStorageEntry switch (SCStorageEntryKind kind) {
+case SC_STORAGE_ENTRY_KEY_V0:  SCStorageKeyEntryV0 keyV0;
+case SC_STORAGE_ENTRY_TYPE_V0: SCSpecEntry typeV0;   // UdtStructV0 / UdtUnionV0 / UdtEnumV0 / UdtErrorEnumV0
+};
+```
+
+## Type entries
+
+Since soroban-sdk 28, spec shaking removes from `contractspecv0` every type that is not reachable from a function parameter, return value or event. `SC_STORAGE_ENTRY_TYPE_V0` carries those types with the schema, in exactly the `contractspecv0` encoding. Type lookup order: section type entries, then sidecar types, then `contractspecv0` types. The first definition of a name wins; a differing later one is reported as a conflict.
+
+## De-duplication
+
+Readers drop exact duplicate key entries and exact duplicate type entries, because the same crate's statics may be linked or injected twice.

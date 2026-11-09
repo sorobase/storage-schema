@@ -1,0 +1,45 @@
+---
+title: Status and limits
+description: What works today, what is not built, what is measured, and which gates apply. Updated 2026-11-08.
+---
+{/* SPDX-License-Identifier: Apache-2.0 */}
+import GateBadge from '../../components/kit/GateBadge.astro';
+import GateNotice from '../../components/kit/GateNotice.astro';
+
+<GateBadge kind="mainnet-read-only" /> <GateBadge kind="unaudited" /> <GateBadge kind="demo-only" label="Demo contracts: demo-only" description="The demo contracts are test subjects built for this project. Do not deploy them with value." /> <GateBadge kind="gate" gateId="G-OUTREACH" state="closed" description="The SEP draft and the rs-soroban-sdk#1818 comment are written, not posted. The project owner posts." />
+
+## Works today (2026-11-08)
+
+| Area | State | Evidence |
+|---|---|---|
+| Format, SPEC, sidecar JSON + JSON Schema | works; wire layout pinned by a test | `model::tests::wire_layout_is_stable`, sidecar round-trip tests |
+| Macros `#[storage_schema]`, `#[storage_key]` | work on soroban-sdk 28.0.0 with `stellar contract build` (CLI 25.2.0) | token and increment demos, e2e tests |
+| `storage_schema_extern!` from a library crate | works when the contract references the library crate; silently absent otherwise | `demos/oz-extern` e2e; measured both builds |
+| Post-build `inject` / `strip` | works; strip restores the original bytes | CLI tests |
+| Decoder and four statuses | works; all four appear on real entries | 9 scenarios with golden outputs (CLI test `golden_outputs_match`) |
+| Lint (sdk#2088 collisions) | works | CLI test, golden `lint-token-oz.json` |
+| Read-only RPC decode | works against mainnet (CLI and this site's live mode) | recorded capture at ledger 65,292,081; live mode in the playground |
+| Browser engine | same output as the CLI on every scenario | `pnpm test`, `cargo test -p sik-storage-schema-web` |
+
+## Not built, or not checked
+
+| Item | Ticket | Why it matters |
+|---|---|---|
+| Newer stellar-cli versions keep the section | SSC-012 | only CLI 25.2.0 is checked; fallback is `inject` after the build |
+| Fuzzing of the stream decoder, wasm parser and sidecar parser | SSC-014 | hostile input is rejected in unit tests, but not fuzzed |
+| Integer-discriminant key enums in the macro | SSC-018 | today: declare them in a sidecar |
+| Value encoding of rs-soroban-sdk PR #2127 `#[contractdata]` | SSC-019 | compatibility is claimed for keys only |
+| History-aware decoding (schema of the wasm active at an entry's last-modified ledger) | SSC-020 | entries written before an upgrade show `value_mismatch` or `unknown` |
+| TypeScript decoder | SSC-021 | the browser uses the Rust decoder compiled to wasm instead |
+| Importers for other schema files (safeguard, soroban-upgrades) | SSC-022 | |
+| Key enumeration | none | RPC cannot list a contract's keys. Decoding needs known keys, the instance map, captures, or an index |
+| Publishing to crates.io and hosting this site | SSC-029 | later phase, see `DEPLOY.md` |
+| Adoption by the SDK, CLI, Lab or any indexer | none | the SEP draft and #1818 comment are not posted |
+
+## What the playground's numbers are
+
+Scenario inputs are committed fixtures: a read-only capture from `https://mainnet.sorobanrpc.com` on 2026-11-03 (ledger 65,292,081 at the start), and the entries the demo contracts write in the soroban test host, captured on 2026-11-08 by `scripts/capture-testhost.sh`. Live mode reads mainnet from your browser and labels the result with the ledger the RPC reported. Nothing on this site is simulated.
+
+## Prior art
+
+No public repo or crate found on 2026-11-03 emits or consumes an off-chain storage schema in a Wasm custom section (`PRIOR-ART.md`). That is the only claim. Typed in-contract storage (sdk#1762, PR #2127, soroban-sdk-tools, Axelar), sidecar schemas for upgrade checks (soroban-upgrade-safeguard, soroban-upgrades) and single-entry decoders (Sorobscope, sdkt) exist and are not rebuilt here.

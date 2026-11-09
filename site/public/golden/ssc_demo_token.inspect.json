@@ -1,0 +1,68 @@
+{
+  "contractspecv0": {
+    "entries": 18,
+    "udts": []
+  },
+  "contractstoragev0": {
+    "keys": [
+      {
+        "durability": "temporary",
+        "key": "[Symbol(\"Allowance\"), AllowanceDataKey]",
+        "lib": "",
+        "name": "DataKey::Allowance",
+        "value": "AllowanceValue"
+      },
+      {
+        "durability": "persistent",
+        "key": "[Symbol(\"Balance\"), Address]",
+        "lib": "",
+        "name": "DataKey::Balance",
+        "value": "i128"
+      },
+      {
+        "durability": "instance",
+        "key": "[Symbol(\"Admin\")]",
+        "lib": "",
+        "name": "DataKey::Admin",
+        "value": "Address"
+      },
+      {
+        "durability": "instance",
+        "key": "Symbol(\"METADATA\")",
+        "lib": "soroban-token-sdk@28.0.0",
+        "name": "METADATA",
+        "value": "TokenMetadata"
+      }
+    ],
+    "payload_bytes": 864,
+    "sections": 1,
+    "types": [
+      "AllowanceValue",
+      "AllowanceDataKey",
+      "TokenMetadata"
+    ]
+  },
+  "custom_sections": [
+    {
+      "bytes": 885,
+      "name": "contractstoragev0"
+    },
+    {
+      "bytes": 32,
+      "name": "contractenvmetav0"
+    },
+    {
+      "bytes": 150,
+      "name": "contractmetav0"
+    },
+    {
+      "bytes": 85,
+      "name": "contractmetav0"
+    },
+    {
+      "bytes": 1498,
+      "name": "contractspecv0"
+    }
+  ],
+  "wasm_bytes": 8885
+}

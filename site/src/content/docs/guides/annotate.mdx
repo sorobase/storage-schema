@@ -1,0 +1,59 @@
+---
+title: Annotate a contract
+description: Emit contractstoragev0 from a key enum or a raw Symbol key with the attribute macros, and check the result after stellar contract build.
+---
+{/* SPDX-License-Identifier: Apache-2.0 */}
+import ProvenanceChip from '../../../components/kit/ProvenanceChip.astro';
+import token from '../../../data/inspect-token.json';
+import prov from '../../../data/provenance.json';
+
+The macros live in `sik-storage-schema-macros` (not on crates.io yet; use a path or git dependency). They add no code: they strip their helper attributes and emit `#[link_section = "contractstoragev0"]` byte statics. Versions checked: soroban-sdk 28.0.0, stellar-cli 25.2.0.
+
+## A key enum
+
+```rust
+use sik_storage_schema_macros::storage_schema;
+
+#[storage_schema]                      // must sit ABOVE #[contracttype]
+#[derive(Clone)]
+#[contracttype]
+pub enum DataKey {
+    #[storage(temporary, value = AllowanceValue)] Allowance(AllowanceDataKey),
+    #[storage(persistent, value = i128)]          Balance(Address),
+    #[storage(skip)]                              State(Address),
+    #[storage(instance, value = Address)]         Admin,
+}
+```
+
+- Every variant needs `#[storage(..)]` or `#[storage(skip)]`; a missing one is a compile error naming the variant.
+- The per-variant shape is the one sketched in [rs-soroban-sdk#1762](https://github.com/stellar/rs-soroban-sdk/issues/1762), so an enum annotated for that proposal reads the same.
+- Enum options: `lib = "crate@ver"` (who writes these keys), `default = persistent`, `types(A, B)` (nested types to carry), `embed_types = false`.
+- Integer-discriminant enums encode as `U32` and are rejected with a message; declare those keys in a sidecar with an `exact` pattern.
+
+## A raw Symbol key
+
+```rust
+#[storage_key(instance, value = u32)]
+const COUNTER: Symbol = symbol_short!("COUNTER");
+```
+
+The symbol is read from the `symbol_short!` initialiser, or given as `symbol = ".."`.
+
+## Types that spec shaking removes
+
+soroban-sdk 28 removes from `contractspecv0` every type not reachable from a function, a return value or an event. Storage-only types such as `AllowanceValue` disappear. The macros therefore carry each user type used in a key or value as a type entry, taken at compile time from the type's own `spec_xdr()`. Types nested inside those are not followed; list them in `types(..)`.
+
+In the token demo, after `stellar contract build`, the section carries {token.contractstoragev0.types.join(', ')}; the shaken spec kept {token.contractspecv0.udts.length} user types <ProvenanceChip kind="fixture" date={prov.wasm.captured.slice(0, 10)} source="fixtures/golden/ssc_demo_token.inspect.json" />.
+
+## Check the result
+
+```sh
+stellar contract build
+storage-schema inspect target/wasm32v1-none/release/my_contract.wasm
+```
+
+`stellar contract build` (CLI 25.2.0, which runs spec shaking v2) and `--optimize` both keep the section. Newer CLIs are not checked yet (SSC-012); if one drops it, `storage-schema inject` after the build gives the same bytes.
+
+## Measure it
+
+Build once more with `RUSTFLAGS="--cfg sik_storage_schema_off"`, which removes every emitted static, and compare: `storage-schema size my.wasm --baseline my.noschema.wasm`. See [Size cost](/size/).

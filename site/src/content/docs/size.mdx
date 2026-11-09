@@ -1,0 +1,60 @@
+---
+title: Size cost
+description: What the contractstoragev0 section adds to a contract's wasm, measured against identical builds without it.
+---
+{/* SPDX-License-Identifier: Apache-2.0 */}
+import ProvenanceChip from '../../components/kit/ProvenanceChip.astro';
+import size from '../../data/size.json';
+
+export const fmt = (n) => n.toLocaleString('en-US');
+export const rows = size.reports;
+export const token = rows.find((r) => r.wasm === 'ssc_demo_token.raw.wasm');
+export const oz = rows.find((r) => r.wasm === 'ssc_demo_oz_pausable.injected.wasm');
+export const paired = rows.filter((r) => r.baseline);
+
+The section is data only. The question is how many bytes it adds, and whether it changes the code. Both are measured by `scripts/build-demos.sh` <ProvenanceChip kind="fixture" date={size.measured.slice(0, 10)} source="scripts/build-demos.sh, fixtures/size-report.json" />.
+
+<div class="ss-tiles not-content">
+  <div class="ss-tile">
+    <p class="ss-tile-label">Token (4 keys, 3 types), macro-emitted</p>
+    <p class="ss-tile-value">{fmt(token.contractstoragev0_section_bytes)}<span class="ss-tile-unit">bytes</span></p>
+    <p class="ss-tile-note">{fmt(token.baseline.wasm_bytes)} to {fmt(token.wasm_bytes)} bytes against the same source built without the schema. Code identical: {token.baseline.code_identical ? 'yes' : 'no'}.</p>
+  </div>
+  <div class="ss-tile">
+    <p class="ss-tile-label">OpenZeppelin token (7 keys, 3 types), injected after build</p>
+    <p class="ss-tile-value">{fmt(oz.contractstoragev0_section_bytes)}<span class="ss-tile-unit">bytes</span></p>
+    <p class="ss-tile-note">{fmt(oz.baseline.wasm_bytes)} to {fmt(oz.wasm_bytes)} bytes. Stripping the section restores the original file byte for byte: {oz.baseline.identical_after_strip ? 'yes' : 'no'}.</p>
+  </div>
+</div>
+
+<div class="ss-table-wrap not-content">
+<table class="ss-table">
+  <thead><tr><th>Wasm</th><th class="ss-num">Wasm bytes</th><th class="ss-num">Section bytes</th><th class="ss-num" title="Section bytes divided by the size of this wasm file, which already contains the section">Share of this wasm</th><th class="ss-num">Keys / types</th><th>Against a baseline</th></tr></thead>
+  <tbody>
+    {rows.map((r) => (
+      <tr>
+        <td class="ss-mono">{r.wasm}</td>
+        <td class="ss-tabular">{fmt(r.wasm_bytes)}</td>
+        <td class="ss-tabular">{fmt(r.contractstoragev0_section_bytes)}</td>
+        <td class="ss-tabular">{r.share_of_wasm_percent}%</td>
+        <td class="ss-tabular">{r.key_entries} / {r.type_entries}</td>
+        <td>{r.baseline ? `${r.baseline.wasm}: +${fmt(r.baseline.delta_bytes)} bytes, code identical ${r.baseline.code_identical ? 'yes' : 'no'}, identical after strip ${r.baseline.identical_after_strip ? 'yes' : 'no'}` : 'no baseline (stellar contract build output)'}</td>
+      </tr>
+    ))}
+  </tbody>
+</table>
+</div>
+
+## Method
+
+{size.method}.
+
+- `*.raw.wasm` and `*.noschema.wasm` come from the identical `cargo rustc` command; the baseline adds `--cfg sik_storage_schema_off`, which removes every static the macros emit and nothing else.
+- `code_identical` compares a digest of every non-custom section. `identical_after_strip` removes the `contractstoragev0` sections and compares the whole file.
+- "Share of this wasm" divides the section bytes by the size of the file that carries the section. It is not the increase over a contract without one: for that, use the baseline column. The token's increase is {token.baseline.delta_bytes} bytes on {fmt(token.baseline.wasm_bytes)} bytes, {(100 * token.baseline.delta_bytes / token.baseline.wasm_bytes).toFixed(2)}% (raw pair), while the shaken, optimised token carries the same section in {fmt(rows.find((r) => r.wasm === 'ssc_demo_token.wasm').wasm_bytes)} bytes, a {rows.find((r) => r.wasm === 'ssc_demo_token.wasm').share_of_wasm_percent}% share.
+- The share of this wasm is large for the shaken (`stellar contract build`) outputs because those are small: the token is {fmt(rows.find((r) => r.wasm === 'ssc_demo_token.wasm').wasm_bytes)} bytes after spec shaking and size optimisation. The section's absolute size depends on the number of keys and types and on their doc strings, not on the contract's code.
+- Cost on chain: wasm upload fees scale with code size. A contract that does not want the bytes on chain can keep the same schema as a sidecar file at zero on-chain cost.
+
+## A bug the measurement found
+
+The first macro version marked its statics `#[used]`. With rustc 1.97.1 that also copied the bytes into the wasm data segment, so the cost doubled and the code changed. `#[used]` was removed; the section is still emitted, and the CLI test `size_cost_is_section_bytes_only` now asserts identical code and a delta equal to the section bytes.

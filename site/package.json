@@ -1,0 +1,29 @@
+{
+  "name": "@sik/storage-schema-site",
+  "private": true,
+  "version": "0.1.0",
+  "license": "Apache-2.0",
+  "type": "module",
+  "description": "Docs and in-browser playground for storage-schema (contractstoragev0): decode Soroban contract-data entries into named, typed records. Mainnet read-only; unaudited.",
+  "scripts": {
+    "demo:data": "node scripts/demo-data.mjs",
+    "test": "node scripts/verify-engine.mjs",
+    "typecheck": "tsc --noEmit -p tsconfig.lib.json",
+    "dev": "astro dev",
+    "build": "tsc --noEmit -p tsconfig.lib.json && astro build",
+    "preview": "astro preview --port 4332"
+  },
+  "dependencies": {
+    "@astrojs/starlight": "0.42.7",
+    "@fontsource-variable/geist": "5.3.0",
+    "@fontsource-variable/geist-mono": "5.3.0",
+    "astro": "7.4.2"
+  },
+  "devDependencies": {
+    "typescript": "5.9.3"
+  },
+  "packageManager": "pnpm@10.22.0",
+  "engines": {
+    "node": ">=22.18"
+  }
+}

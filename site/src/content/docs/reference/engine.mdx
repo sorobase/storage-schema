@@ -1,0 +1,31 @@
+---
+title: Browser engine
+description: The decoder compiled to WebAssembly for the playground - its C ABI, request shapes, how it is built and how it is checked against the CLI.
+---
+{/* SPDX-License-Identifier: Apache-2.0 */}
+import ProvenanceChip from '../../../components/kit/ProvenanceChip.astro';
+import engine from '../../../data/engine.json';
+
+export const fmt = (n) => n.toLocaleString('en-US');
+
+`crates/web` (`sik-storage-schema-web`) links the core crate unchanged (feature `rpc` off) and exposes four C functions. There is no wasm-bindgen and no import: the module is instantiated with an empty import object.
+
+| Function | Purpose |
+|---|---|
+| `ssc_alloc(len) -> ptr` / `ssc_free(ptr, len)` | buffers for the request and payload |
+| `ssc_call(req_ptr, req_len, data_ptr, data_len) -> out_len` | one JSON request plus an optional wasm payload |
+| `ssc_out_ptr() -> ptr` | the JSON response, valid until the next call |
+
+Requests: `version`, `inspect`, `decode`, `lint`, `instance_key`, `code_key`, `entry_key`, `executable`. Responses are the same JSON as the CLI's `inspect --format json`, `decode` and `lint`. Live code is passed as a `getLedgerEntries` response plus the expected hash; the engine checks the code's SHA-256 before using it. Errors come back as `{"ok": false, "error": ".."}`, never as a trap.
+
+## This build
+
+`storage-schema-engine.wasm`: {fmt(engine.size)} bytes, sha256 `{engine.sha256}`, {engine.rustc}, target {engine.target}, profile {engine.profile} <ProvenanceChip kind="fixture" date={engine.built_at.slice(0, 10)} source="scripts/build-engine.sh" />. The page refuses to load it if its SHA-256 differs from the provenance file.
+
+## How it is checked
+
+- `cargo test -p sik-storage-schema-web`: the engine's entry point returns exactly the golden CLI output for every scenario, inspect and lint.
+- `pnpm test` in `site/`: the built `.wasm`, loaded through the page's own glue (`src/lib/engine.ts`), equals the CLI goldens for every scenario, every demo wasm's inspect and the lint case, builds the ledger keys found in the recorded RPC captures, and turns bad input into errors.
+- The playground repeats the scenario comparison in your browser and shows the result next to each scenario.
+
+Rebuild with `bash scripts/build-engine.sh` (needs the `wasm32-unknown-unknown` target), then `pnpm demo:data`.

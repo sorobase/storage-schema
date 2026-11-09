@@ -1,0 +1,45 @@
+---
+title: Matching and statuses
+description: How a contract-data ledger entry is mapped to a schema entry, and the four statuses the decoder reports. Normative text is SPEC.md section 4.
+---
+{/* SPDX-License-Identifier: Apache-2.0 */}
+import lint from '../../../data/lint-token-oz.json';
+
+This answers the question in [rs-soroban-sdk#1818](https://github.com/stellar/rs-soroban-sdk/issues/1818): how does an off-chain consumer decide which declared storage type applies to a ledger entry?
+
+## Inputs
+
+A contract-data entry gives `(contract, key, durability, value)`. The contract instance entry is expanded: each element of its storage map is decoded as an `instance` entry. The schema comes from the contract's current wasm, from sidecars, or both.
+
+## Pattern match
+
+A key matches a schema entry only if the durability is the same and:
+
+| Pattern | Matches when | Produced by |
+|---|---|---|
+| `EXACT(v)` | the key equals `v` (XDR-equal) | `symbol_short!("COUNTER")`, integer keys, any literal |
+| `TAGGED(tag, f1..fn)` | the key is `Vec[Symbol(tag), k1..kn]` and each `ki` conforms to `fi` | `#[contracttype] enum` variants, sdk#1762, sdk#2127 namespaced keys |
+| `TYPED(t)` | the key conforms to `t` | catch-alls, e.g. any `Address` |
+
+Then keep only the most specific matches (`EXACT` over `TAGGED` over `TYPED`) and report:
+
+| Status | When | What the decoder does |
+|---|---|---|
+| **Matched** | one entry left and the value conforms to its type | renders key and value as named, typed JSON |
+| **Value mismatch** | one entry left and the value does not conform | names the entry, gives the path, the expected type and the shape found |
+| **Ambiguous** | more than one entry left | lists every candidate with whether its value type fits, and **does not pick**, even if only one fits |
+| **Unknown** | nothing matches | gives the key shape and, when an entry of another durability would match, says so |
+
+Every result carries the raw key and value XDR. Decoders must not name an entry that matched no pattern, must not resolve an ambiguity silently, and must not drop the raw XDR.
+
+## Hard cases
+
+- **Same key, different durability.** Durability is part of the ledger key, so it partitions matching. OpenZeppelin v0.8.0 relies on this: its old instance total supply and its new persistent total supply use the same key value.
+- **rs-soroban-sdk#2088 collisions.** Two enums in different crates both define `Balance(Address)`. The chain holds one entry; no format can say after the fact which writer meant it. The decoder reports `ambiguous`; `lint` reports it before deploy. For the token plus the OZ sidecar, lint finds:
+
+<ul>
+  {lint.findings.map((f) => <li><strong>{f.code}</strong> ({f.severity}): {f.entries.join(' and ')}. {f.message}.</li>)}
+</ul>
+
+- **Data written before an upgrade.** The schema describes the current wasm. Older shapes show as `value_mismatch` or `unknown`. History-aware selection (the wasm active at the entry's last-modified ledger) is ticket SSC-020, not built.
+- **Undeclared entries.** `unknown`, with the key shape and raw XDR, so a schema author can see what to add.

@@ -1,0 +1,417 @@
+[
+  {
+    "id": "mainnet-usdc-sac",
+    "title": "USDC on mainnet, through the Stellar Asset Contract sidecar",
+    "story": "The built-in Stellar Asset Contract has no wasm, so it can never carry a section. A sidecar file describes it. Instance storage plus five contract-holder balances.",
+    "deliberate": false,
+    "wasm": null,
+    "sidecars": [
+      {
+        "file": "sidecars/stellar-asset-contract.storage.json",
+        "label": "stellar-asset-contract.storage.json",
+        "url": "inputs/sidecars/stellar-asset-contract.storage.json"
+      }
+    ],
+    "entries": [
+      {
+        "file": "fixtures/mainnet/usdc-sac.instance.json",
+        "label": "fixtures/mainnet/usdc-sac.instance.json",
+        "url": "inputs/fixtures/mainnet/usdc-sac.instance.json"
+      },
+      {
+        "file": "fixtures/mainnet/usdc-sac.balances.json",
+        "label": "fixtures/mainnet/usdc-sac.balances.json",
+        "url": "inputs/fixtures/mainnet/usdc-sac.balances.json"
+      }
+    ],
+    "golden_url": "golden/mainnet-usdc-sac.decode.json",
+    "summary": {
+      "total": 8,
+      "by_status": {
+        "ambiguous": 0,
+        "matched": 8,
+        "unknown": 0,
+        "value_mismatch": 0
+      }
+    },
+    "instances": [
+      {
+        "contract": "CCW67TSZV3SSS2HXMBQ5JFGCKJNXKZM7UQUWUZPUTHXSTZLEO7SJMI75",
+        "executable": "stellar_asset",
+        "storage_entries": 3,
+        "live_until_ledger": 67326585
+      }
+    ],
+    "provenance": {
+      "kind": "recorded",
+      "ledger": 65292086,
+      "date": "2026-11-03",
+      "source": "https://mainnet.sorobanrpc.com",
+      "script": "scripts/capture-mainnet.sh",
+      "note": "getLedgerEntries response captured read-only; ledger is the latestLedger the RPC reported"
+    }
+  },
+  {
+    "id": "mainnet-holder-no-schema",
+    "title": "A mainnet contract whose wasm carries no schema",
+    "story": "One of the USDC holders is a wasm contract without a contractstoragev0 section. This is every contract today: the decoder names nothing and says unknown for each entry, with the key shape.",
+    "deliberate": false,
+    "wasm": null,
+    "sidecars": [],
+    "entries": [
+      {
+        "file": "fixtures/mainnet/holder.instance.json",
+        "label": "fixtures/mainnet/holder.instance.json",
+        "url": "inputs/fixtures/mainnet/holder.instance.json"
+      }
+    ],
+    "golden_url": "golden/mainnet-holder-no-schema.decode.json",
+    "summary": {
+      "total": 37,
+      "by_status": {
+        "ambiguous": 0,
+        "matched": 0,
+        "unknown": 37,
+        "value_mismatch": 0
+      }
+    },
+    "instances": [
+      {
+        "contract": "CA6PUJLBYKZKUEKLZJMKBZLEKP2OTHANDEOWSFF44FTSYLKQPIICCJBE",
+        "executable": "wasm",
+        "wasm_hash": "d691135aade93ff0f7c229e009cde042130a05124cf7202b03d11246b4f9b473",
+        "storage_entries": 37,
+        "live_until_ledger": 67905760
+      }
+    ],
+    "provenance": {
+      "kind": "recorded",
+      "ledger": 65292097,
+      "date": "2026-11-03",
+      "source": "https://mainnet.sorobanrpc.com",
+      "script": "scripts/capture-mainnet.sh",
+      "note": "getLedgerEntries response captured read-only; ledger is the latestLedger the RPC reported"
+    }
+  },
+  {
+    "id": "mainnet-sac-wrong-schema",
+    "title": "Deliberate: USDC balances read with the wrong schema",
+    "story": "The soroban-examples token stores Balance(Address) -> i128. The SAC stores Balance(Address) -> {amount, authorized, clawback}. Same key shape, different value: the decoder reports value_mismatch with the path, instead of a wrong decode.",
+    "deliberate": true,
+    "wasm": {
+      "file": "fixtures/wasm/ssc_demo_token.wasm",
+      "url": "inputs/fixtures/wasm/ssc_demo_token.wasm",
+      "bytes": 8885,
+      "sha256": "92db58e2ddafe7871f005849f9605090cb5bc4fb43de740fa9f4a1946486cbb1"
+    },
+    "sidecars": [],
+    "entries": [
+      {
+        "file": "fixtures/mainnet/usdc-sac.balances.json",
+        "label": "fixtures/mainnet/usdc-sac.balances.json",
+        "url": "inputs/fixtures/mainnet/usdc-sac.balances.json"
+      }
+    ],
+    "golden_url": "golden/mainnet-sac-wrong-schema.decode.json",
+    "summary": {
+      "total": 5,
+      "by_status": {
+        "ambiguous": 0,
+        "matched": 0,
+        "unknown": 0,
+        "value_mismatch": 5
+      }
+    },
+    "instances": [],
+    "provenance": {
+      "kind": "recorded",
+      "ledger": 65292095,
+      "date": "2026-11-03",
+      "source": "https://mainnet.sorobanrpc.com",
+      "script": "scripts/capture-mainnet.sh",
+      "note": "getLedgerEntries response captured read-only; ledger is the latestLedger the RPC reported"
+    }
+  },
+  {
+    "id": "testhost-token",
+    "title": "Token annotated with #[storage_schema]",
+    "story": "soroban-examples token with a one-attribute-per-variant diff. The schema travels inside the wasm; no other input is needed.",
+    "deliberate": false,
+    "wasm": {
+      "file": "fixtures/wasm/ssc_demo_token.wasm",
+      "url": "inputs/fixtures/wasm/ssc_demo_token.wasm",
+      "bytes": 8885,
+      "sha256": "92db58e2ddafe7871f005849f9605090cb5bc4fb43de740fa9f4a1946486cbb1"
+    },
+    "sidecars": [],
+    "entries": [
+      {
+        "file": "fixtures/testhost/token.entries.json",
+        "label": "fixtures/testhost/token.entries.json",
+        "url": "inputs/fixtures/testhost/token.entries.json"
+      }
+    ],
+    "golden_url": "golden/testhost-token.decode.json",
+    "summary": {
+      "total": 5,
+      "by_status": {
+        "ambiguous": 0,
+        "matched": 5,
+        "unknown": 0,
+        "value_mismatch": 0
+      }
+    },
+    "instances": [
+      {
+        "contract": "CA36FQITV33RO5SJFPTNLRQBD6ZNAEJG7F7J5KWCV4OP7SQHDMIZCT33",
+        "executable": "wasm",
+        "wasm_hash": "92db58e2ddafe7871f005849f9605090cb5bc4fb43de740fa9f4a1946486cbb1",
+        "storage_entries": 2,
+        "live_until_ledger": 120960
+      }
+    ],
+    "provenance": {
+      "kind": "fixture",
+      "date": "2026-11-08",
+      "source": "soroban test host (soroban-sdk 28.0.0)",
+      "script": "scripts/capture-testhost.sh",
+      "note": "ssc_demo_token.wasm: __constructor(admin, 7, \"Demo\", \"DEMO\"); mint(alice, 1000); transfer(alice, bob, 250); approve(alice, bob, 40, 200)"
+    }
+  },
+  {
+    "id": "testhost-increment",
+    "title": "Raw Symbol key with #[storage_key]",
+    "story": "soroban-examples increment stores a counter under symbol_short!(\"COUNTER\") in instance storage.",
+    "deliberate": false,
+    "wasm": {
+      "file": "fixtures/wasm/ssc_demo_increment.wasm",
+      "url": "inputs/fixtures/wasm/ssc_demo_increment.wasm",
+      "bytes": 747,
+      "sha256": "af05d5bed2217776a840a237ee2ae7e484534697c6ce66f5dbd01307037fd09e"
+    },
+    "sidecars": [],
+    "entries": [
+      {
+        "file": "fixtures/testhost/increment.entries.json",
+        "label": "fixtures/testhost/increment.entries.json",
+        "url": "inputs/fixtures/testhost/increment.entries.json"
+      }
+    ],
+    "golden_url": "golden/testhost-increment.decode.json",
+    "summary": {
+      "total": 1,
+      "by_status": {
+        "ambiguous": 0,
+        "matched": 1,
+        "unknown": 0,
+        "value_mismatch": 0
+      }
+    },
+    "instances": [
+      {
+        "contract": "CBKMUZNFQIAL775XBB2W2GP5CNHBM5YGH6C3XB7AY6SUVO2IBU3VYK2V",
+        "executable": "wasm",
+        "wasm_hash": "af05d5bed2217776a840a237ee2ae7e484534697c6ce66f5dbd01307037fd09e",
+        "storage_entries": 1,
+        "live_until_ledger": 4095
+      }
+    ],
+    "provenance": {
+      "kind": "fixture",
+      "date": "2026-11-08",
+      "source": "soroban test host (soroban-sdk 28.0.0)",
+      "script": "scripts/capture-testhost.sh",
+      "note": "ssc_demo_increment.wasm: increment() x3"
+    }
+  },
+  {
+    "id": "testhost-oz-injected",
+    "title": "Unmodified OpenZeppelin token, schema injected after the build",
+    "story": "OZ stellar-contracts v0.8.0 fungible-pausable, not modified. A sidecar was written into the built wasm with storage-schema inject. Keys come from three crates; lib says which.",
+    "deliberate": false,
+    "wasm": {
+      "file": "fixtures/wasm/ssc_demo_oz_pausable.injected.wasm",
+      "url": "inputs/fixtures/wasm/ssc_demo_oz_pausable.injected.wasm",
+      "bytes": 13814,
+      "sha256": "de1b465d6afc8c9d58fd7ebc02e8ddc427f250bf70a5c1e158c3a1eb110cd826"
+    },
+    "sidecars": [],
+    "entries": [
+      {
+        "file": "fixtures/testhost/oz-pausable.entries.json",
+        "label": "fixtures/testhost/oz-pausable.entries.json",
+        "url": "inputs/fixtures/testhost/oz-pausable.entries.json"
+      }
+    ],
+    "golden_url": "golden/testhost-oz-injected.decode.json",
+    "summary": {
+      "total": 7,
+      "by_status": {
+        "ambiguous": 0,
+        "matched": 7,
+        "unknown": 0,
+        "value_mismatch": 0
+      }
+    },
+    "instances": [
+      {
+        "contract": "CAJXGFIU32R2SF4BVXV2EB2XSSUPUBQMNXWJWB5GYS7WE76TFPPR7Q7P",
+        "executable": "wasm",
+        "wasm_hash": "de1b465d6afc8c9d58fd7ebc02e8ddc427f250bf70a5c1e158c3a1eb110cd826",
+        "storage_entries": 3,
+        "live_until_ledger": 4095
+      }
+    ],
+    "provenance": {
+      "kind": "fixture",
+      "date": "2026-11-08",
+      "source": "soroban test host (soroban-sdk 28.0.0)",
+      "script": "scripts/capture-testhost.sh",
+      "note": "ssc_demo_oz_pausable.injected.wasm (same code as ssc_demo_oz_pausable.wasm): __constructor(\"OZ Demo\", \"OZD\", owner, 5000); transfer(owner, bob, 1200); approve(owner, bob, 7, 500); pause(owner)"
+    }
+  },
+  {
+    "id": "testhost-oz-no-schema",
+    "title": "The same OpenZeppelin token without a schema",
+    "story": "Identical entries, plain wasm. Without a schema nothing is named and nothing is guessed.",
+    "deliberate": false,
+    "wasm": {
+      "file": "fixtures/wasm/ssc_demo_oz_pausable.wasm",
+      "url": "inputs/fixtures/wasm/ssc_demo_oz_pausable.wasm",
+      "bytes": 12541,
+      "sha256": "419666841bf535d3557844830940ef41f73069c04043f6bdd7ee65033d930be9"
+    },
+    "sidecars": [],
+    "entries": [
+      {
+        "file": "fixtures/testhost/oz-pausable.entries.json",
+        "label": "fixtures/testhost/oz-pausable.entries.json",
+        "url": "inputs/fixtures/testhost/oz-pausable.entries.json"
+      }
+    ],
+    "golden_url": "golden/testhost-oz-no-schema.decode.json",
+    "summary": {
+      "total": 7,
+      "by_status": {
+        "ambiguous": 0,
+        "matched": 0,
+        "unknown": 7,
+        "value_mismatch": 0
+      }
+    },
+    "instances": [
+      {
+        "contract": "CAJXGFIU32R2SF4BVXV2EB2XSSUPUBQMNXWJWB5GYS7WE76TFPPR7Q7P",
+        "executable": "wasm",
+        "wasm_hash": "de1b465d6afc8c9d58fd7ebc02e8ddc427f250bf70a5c1e158c3a1eb110cd826",
+        "storage_entries": 3,
+        "live_until_ledger": 4095
+      }
+    ],
+    "provenance": {
+      "kind": "fixture",
+      "date": "2026-11-08",
+      "source": "soroban test host (soroban-sdk 28.0.0)",
+      "script": "scripts/capture-testhost.sh",
+      "note": "ssc_demo_oz_pausable.injected.wasm (same code as ssc_demo_oz_pausable.wasm): __constructor(\"OZ Demo\", \"OZD\", owner, 5000); transfer(owner, bob, 1200); approve(owner, bob, 7, 500); pause(owner)"
+    }
+  },
+  {
+    "id": "testhost-oz-extern",
+    "title": "OpenZeppelin keys declared in source with storage_schema_extern!",
+    "story": "A token built on OZ stellar-tokens 0.8.0. The keys OZ writes are declared with storage_schema_extern! in a separate library crate, so the schema is in the wasm straight from stellar contract build (SSC-013).",
+    "deliberate": false,
+    "wasm": {
+      "file": "fixtures/wasm/ssc_demo_oz_extern.wasm",
+      "url": "inputs/fixtures/wasm/ssc_demo_oz_extern.wasm",
+      "bytes": 8682,
+      "sha256": "11c03eb29860a38e0ab8432dcbfea58c2269b1d0b4a0bdc92e18cfa8e19157fe"
+    },
+    "sidecars": [],
+    "entries": [
+      {
+        "file": "fixtures/testhost/oz-extern.entries.json",
+        "label": "fixtures/testhost/oz-extern.entries.json",
+        "url": "inputs/fixtures/testhost/oz-extern.entries.json"
+      }
+    ],
+    "golden_url": "golden/testhost-oz-extern.decode.json",
+    "summary": {
+      "total": 6,
+      "by_status": {
+        "ambiguous": 0,
+        "matched": 6,
+        "unknown": 0,
+        "value_mismatch": 0
+      }
+    },
+    "instances": [
+      {
+        "contract": "CAJXGFIU32R2SF4BVXV2EB2XSSUPUBQMNXWJWB5GYS7WE76TFPPR7Q7P",
+        "executable": "wasm",
+        "wasm_hash": "11c03eb29860a38e0ab8432dcbfea58c2269b1d0b4a0bdc92e18cfa8e19157fe",
+        "storage_entries": 3,
+        "live_until_ledger": 4095
+      }
+    ],
+    "provenance": {
+      "kind": "fixture",
+      "date": "2026-11-08",
+      "source": "soroban test host (soroban-sdk 28.0.0)",
+      "script": "scripts/capture-testhost.sh",
+      "note": "ssc_demo_oz_extern.wasm: __constructor(owner, 9000); transfer(owner, bob, 400); approve(owner, bob, 25, 300); pause(owner)"
+    }
+  },
+  {
+    "id": "testhost-collision-2088",
+    "title": "Deliberate: two crates both claim Balance(Address)",
+    "story": "The token's schema merged with the OZ fungible sidecar, as when one contract links both crates (rs-soroban-sdk#2088). One ledger entry, two writers that could have meant it: the decoder reports ambiguous with both candidates and does not pick.",
+    "deliberate": true,
+    "wasm": {
+      "file": "fixtures/wasm/ssc_demo_token.wasm",
+      "url": "inputs/fixtures/wasm/ssc_demo_token.wasm",
+      "bytes": 8885,
+      "sha256": "92db58e2ddafe7871f005849f9605090cb5bc4fb43de740fa9f4a1946486cbb1"
+    },
+    "sidecars": [
+      {
+        "file": "sidecars/oz-fungible-pausable-v0.8.0.storage.json",
+        "label": "oz-fungible-pausable-v0.8.0.storage.json",
+        "url": "inputs/sidecars/oz-fungible-pausable-v0.8.0.storage.json"
+      }
+    ],
+    "entries": [
+      {
+        "file": "fixtures/testhost/token.entries.json",
+        "label": "fixtures/testhost/token.entries.json",
+        "url": "inputs/fixtures/testhost/token.entries.json"
+      }
+    ],
+    "golden_url": "golden/testhost-collision-2088.decode.json",
+    "summary": {
+      "total": 5,
+      "by_status": {
+        "ambiguous": 2,
+        "matched": 3,
+        "unknown": 0,
+        "value_mismatch": 0
+      }
+    },
+    "instances": [
+      {
+        "contract": "CA36FQITV33RO5SJFPTNLRQBD6ZNAEJG7F7J5KWCV4OP7SQHDMIZCT33",
+        "executable": "wasm",
+        "wasm_hash": "92db58e2ddafe7871f005849f9605090cb5bc4fb43de740fa9f4a1946486cbb1",
+        "storage_entries": 2,
+        "live_until_ledger": 120960
+      }
+    ],
+    "provenance": {
+      "kind": "fixture",
+      "date": "2026-11-08",
+      "source": "soroban test host (soroban-sdk 28.0.0)",
+      "script": "scripts/capture-testhost.sh",
+      "note": "ssc_demo_token.wasm: __constructor(admin, 7, \"Demo\", \"DEMO\"); mint(alice, 1000); transfer(alice, bob, 250); approve(alice, bob, 40, 200)"
+    }
+  }
+]

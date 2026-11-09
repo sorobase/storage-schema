@@ -1,0 +1,58 @@
+---
+title: Keys written by dependencies
+description: Three routes for keys that an imported crate writes (OpenZeppelin, soroban-token-sdk) - storage_schema_extern!, #[storage_key(lib = ..)], or a sidecar - and the linking rule found while testing them.
+---
+{/* SPDX-License-Identifier: Apache-2.0 */}
+import ProvenanceChip from '../../../components/kit/ProvenanceChip.astro';
+import ext from '../../../data/inspect-oz-extern.json';
+import scenarios from '../../../data/scenarios.json';
+import prov from '../../../data/provenance.json';
+
+export const s = scenarios.find((x) => x.id === 'testhost-oz-extern');
+
+A ledger entry written by an imported crate looks exactly like one written by the contract. OpenZeppelin's `stellar-tokens` writes `FungibleStorageKey::Balance(Address)`; `soroban-token-sdk` writes `Symbol("METADATA")`. Neither crate emits a schema today. The field `lib` on each key entry records who writes it, so a reader can tell "the contract" from "stellar-tokens@0.8.0".
+
+| Route | When | Demo |
+|---|---|---|
+| `storage_schema_extern!` | You can build the contract, and want the keys declared in source | `demos/oz-extern` + `demos/oz-keys` |
+| `#[storage_key(.., lib = "..")]` | One raw-Symbol key from a dependency | token demo, `METADATA` from soroban-token-sdk |
+| Sidecar + `inject` | You cannot or will not change the source | `demos/oz-pausable` (OZ example, unmodified) |
+
+## storage_schema_extern!
+
+```rust
+// demos/oz-keys/src/lib.rs (a library crate)
+use stellar_tokens::fungible::{AllowanceData, AllowanceKey};
+
+storage_schema_extern! {
+    #[storage_schema(lib = "stellar-tokens@0.8.0")]
+    enum FungibleStorageKey {
+        #[storage(instance, value = Metadata)]           Meta,
+        #[storage(persistent, value = i128)]             Balance(Address),
+        #[storage(temporary, value = AllowanceData)]     Allowance(AllowanceKey),
+    }
+}
+```
+
+The enum is not emitted; only the section bytes are. The contract (`demos/oz-extern`) uses OZ's `Base` and `pausable` functions, unmodified, and links the declarations with one line:
+
+```rust
+use ssc_demo_oz_keys as _;
+```
+
+After `stellar contract build`, the contract's wasm carries {ext.contractstoragev0.keys.length} key entries ({ext.contractstoragev0.keys.map((k) => k.name).join(', ')}) and the types {ext.contractstoragev0.types.join(', ')}. Run in the soroban test host, its {s.summary.total} entries all decode `matched` with no warnings <ProvenanceChip kind="fixture" date={prov.testhost.captured.slice(0, 10)} source="soroban test host, demos/oz-extern/tests/schema_e2e.rs" href="/playground/?s=testhost-oz-extern" />.
+
+### Two things found while building it (2026-11-08)
+
+1. **The library crate must be referenced.** Statics from a dependency crate reach the final wasm only if the contract mentions the crate. Measured with the same contract built twice: with `use ssc_demo_oz_keys as _;` the section has 5 key entries and 3 types; without that line it has 1 key entry (the contract's own `OWNER`) and the build still succeeds. Nothing warns. `storage-schema inspect` (or a CI check with `decode --strict` on test-host entries) is how you catch it.
+2. **Private dependency types need a mirror.** OpenZeppelin keeps `Metadata` in a private module, so its `spec_xdr()` cannot be named from outside the crate. `demos/oz-keys` declares a `#[contracttype]` struct with the same name and fields, used only to carry the definition. If the upstream type changes, the mirror must change too; the e2e test would show `value_mismatch`.
+
+## Sidecar and inject
+
+For a contract you do not build, write the schema as JSON ([Sidecar files](/guides/sidecar/)) and either keep it beside the contract or write it into the wasm after the build:
+
+```sh
+storage-schema inject oz.wasm --schema sidecars/oz-fungible-pausable-v0.8.0.storage.json --replace -o oz.injected.wasm
+```
+
+The OpenZeppelin demo shows both: with the injected schema, all of its entries decode `matched`; the same entries with the plain wasm are all `unknown` ([compare in the playground](/playground/?s=testhost-oz-no-schema)).

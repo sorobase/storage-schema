@@ -1,0 +1,90 @@
+---
+title: Quickstart (CLI)
+description: Build the CLI and run inspect, decode, lint, inject and size on committed fixtures, offline, then a live read-only decode.
+---
+{/* SPDX-License-Identifier: Apache-2.0 */}
+import GateBadge from '../../../components/kit/GateBadge.astro';
+
+The CLI is not published yet (see [Status](/status/)). Build it from the project directory. Toolchain: `rust-toolchain.toml` pins rustc 1.97.1.
+
+```sh
+cd projects/storage-schema
+cargo build -p sik-storage-schema-cli
+CLI=target/debug/storage-schema
+```
+
+## What a wasm carries
+
+```sh
+$CLI inspect fixtures/wasm/ssc_demo_token.wasm
+```
+
+```text
+fixtures/wasm/ssc_demo_token.wasm (8885 bytes)
+  contractstoragev0: 4 key entries, 3 types, 864 payload bytes in 1 section(s)
+    temporary  DataKey::Allowance               [Symbol("Allowance"), AllowanceDataKey] -> AllowanceValue
+    persistent DataKey::Balance                 [Symbol("Balance"), Address] -> i128
+    instance   DataKey::Admin                   [Symbol("Admin")] -> Address
+    instance   METADATA                         Symbol("METADATA") -> TokenMetadata  [soroban-token-sdk@28.0.0]
+    types: AllowanceValue, AllowanceDataKey, TokenMetadata
+  contractspecv0: 18 entries (0 UDTs: )
+```
+
+The last line is the point of the type entries: after spec shaking, the callable spec keeps none of the token's storage types.
+
+`--format json` gives the same as JSON; `--format sidecar` extracts the section as an editable sidecar file.
+
+## Decode recorded entries, offline
+
+```sh
+$CLI decode --schema sidecars/stellar-asset-contract.storage.json \
+     --entries fixtures/mainnet/usdc-sac.instance.json \
+     --entries fixtures/mainnet/usdc-sac.balances.json --format text
+```
+
+`--entries` takes `getLedgerEntries` responses (full response, its `result`, or a bare array). `--strict` exits 2 unless every entry is `matched`, for CI.
+
+## Decode live, read-only
+
+<GateBadge kind="mainnet-read-only" />
+
+```sh
+$CLI decode --rpc https://mainnet.sorobanrpc.com \
+     --contract CCW67TSZV3SSS2HXMBQ5JFGCKJNXKZM7UQUWUZPUTHXSTZLEO7SJMI75 \
+     --schema sidecars/stellar-asset-contract.storage.json \
+     --fetch 'DataKey::Balance=CA6PUJLBYKZKUEKLZJMKBZLEKP2OTHANDEOWSFF44FTSYLKQPIICCJBE' --format text
+```
+
+The CLI reads the contract instance (and the wasm, for a wasm contract), builds the ledger key for each `--fetch NAME=args` from the schema, and calls `getLedgerEntries`. Calls are spaced at least 600 ms apart. Nothing is signed or sent.
+
+## Catch key collisions before deploy
+
+```sh
+$CLI lint --wasm fixtures/wasm/ssc_demo_token.wasm --schema sidecars/oz-fungible-pausable-v0.8.0.storage.json
+```
+
+Exit 2: the token's `DataKey::Balance(Address)` and OpenZeppelin's `FungibleStorageKey::Balance(Address)` address the same persistent entry (rs-soroban-sdk#2088).
+
+## Give an existing wasm a schema, and measure it
+
+```sh
+$CLI inject fixtures/wasm/ssc_demo_oz_pausable.wasm \
+     --schema sidecars/oz-fungible-pausable-v0.8.0.storage.json --replace -o /tmp/oz.wasm
+$CLI size /tmp/oz.wasm --baseline fixtures/wasm/ssc_demo_oz_pausable.wasm
+$CLI strip /tmp/oz.wasm -o /tmp/oz.stripped.wasm && cmp /tmp/oz.stripped.wasm fixtures/wasm/ssc_demo_oz_pausable.wasm
+```
+
+## All commands
+
+| Command | Purpose |
+|---|---|
+| `inspect <wasm> [--format summary\|json\|sidecar]` | the embedded schema and a spec summary |
+| `inject <wasm> --schema <sidecar> -o <out> [--replace]` | append (or replace) a `contractstoragev0` section after the build |
+| `strip <wasm> -o <out>` | remove the section |
+| `lint [--wasm W] [--schema S].. [--deny-warnings]` | collisions, undefined and conflicting types |
+| `decode [--wasm W] [--schema S].. [--entries F].. [--contract C --rpc URL [--fetch NAME=args]..] [--format json\|text] [--strict]` | named, typed records with statuses |
+| `key --contract C --entry NAME [--wasm W\|--schema S] args..` | base64 `LedgerKey` for a schema entry |
+| `rpc entries --rpc URL --key-xdr B64..` / `rpc wasm --rpc URL --contract C [-o out]` | read-only capture helpers |
+| `size <wasm> [--baseline W]` | section bytes and the comparison with a baseline build |
+
+Exit codes: 0 ok, 1 input, IO or RPC error, 2 policy failure (`lint`, `decode --strict`).

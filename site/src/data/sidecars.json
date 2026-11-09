@@ -1,0 +1,12 @@
+[
+  {
+    "label": "oz-fungible-pausable-v0.8.0.storage.json",
+    "url": "inputs/sidecars/oz-fungible-pausable-v0.8.0.storage.json",
+    "description": "OpenZeppelin stellar-contracts v0.8.0 examples/fungible-pausable (tag v0.8.0, commit ddc327e). Written by hand from the source on 2026-11-03; keys of imported crates are labelled with lib."
+  },
+  {
+    "label": "stellar-asset-contract.storage.json",
+    "url": "inputs/sidecars/stellar-asset-contract.storage.json",
+    "description": "Built-in Stellar Asset Contract (SAC). It has no wasm, so a sidecar is the only way to carry its schema. Written by hand on 2026-11-03 from soroban-env-host 28.0.2 src/builtin_contracts/stellar_asset_contract/{storage_types,metadata,public_types}.rs. Balances of G-accounts live in trustlines, not contract data; only contract (C...) holders have DataKey::Balance entries."
+  }
+]

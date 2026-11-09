@@ -1,0 +1,32 @@
+{
+  "mainnet": {
+    "captured": "2026-11-03T22:55:28Z",
+    "rpc": "https://mainnet.sorobanrpc.com",
+    "ledger_at_start": 65292081,
+    "usdc_sac": "CCW67TSZV3SSS2HXMBQ5JFGCKJNXKZM7UQUWUZPUTHXSTZLEO7SJMI75",
+    "holder_contract": "CA6PUJLBYKZKUEKLZJMKBZLEKP2OTHANDEOWSFF44FTSYLKQPIICCJBE",
+    "holder_wasm": {
+      "bytes": 57320,
+      "executable": "wasm",
+      "wasm_hash": "d691135aade93ff0f7c229e009cde042130a05124cf7202b03d11246b4f9b473",
+      "has_contractstoragev0": false,
+      "custom_sections": [
+        "contractspecv0",
+        "contractmetav0",
+        "contractenvmetav0",
+        "contractmetav0"
+      ]
+    }
+  },
+  "testhost": {
+    "captured": "2026-11-08T05:53:17Z",
+    "source": "soroban test host (soroban-sdk =28.0.0 testutils), running the built wasm from fixtures/wasm/ in demos/*/tests/schema_e2e.rs; not a network",
+    "rustc": "rustc 1.97.1 (8bab26f4f 2026-07-14)"
+  },
+  "wasm": {
+    "captured": "2026-11-08T05:53:04Z",
+    "rustc": "rustc 1.97.1 (8bab26f4f 2026-07-14)",
+    "target": "wasm32v1-none, profile release (opt-level z, lto, codegen-units 1, strip symbols); built by stellar contract build (stellar-cli 25.2.0)",
+    "soroban_sdk": "=28.0.0"
+  }
+}

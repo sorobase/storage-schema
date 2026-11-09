@@ -1,0 +1,264 @@
+---
+// SPDX-License-Identifier: Apache-2.0
+// The playground (SSC-027): the storage-schema decoder (crates/web, compiled
+// to wasm) runs in this page. Three sources: a recorded scenario (inputs and
+// golden CLI output served from this site), your own files, or a live
+// read-only lookup against a public mainnet RPC. Logic: src/lib/playground.ts.
+// Icons are server-rendered into <template>s and cloned by the script, so the
+// page uses Starlight's icon set and no hand-drawn SVG.
+import { Icon } from '@astrojs/starlight/components';
+import GateBadge from './kit/GateBadge.astro';
+import scenarios from '../data/scenarios.json';
+import sidecars from '../data/sidecars.json';
+import wasm from '../data/wasm.json';
+import engine from '../data/engine.json';
+
+const base = import.meta.env.BASE_URL.replace(/\/?$/, '/');
+const boot = {
+  base,
+  engine: { sha256: engine.sha256, size: engine.size, rustc: engine.rustc, built_at: engine.built_at },
+  scenarios,
+  sidecars,
+  wasm,
+  rpc: 'https://mainnet.sorobanrpc.com',
+};
+const fmt = (n: number) => n.toLocaleString('en-US');
+const groups = [
+  { title: 'Recorded on mainnet', items: scenarios.filter((s) => s.provenance.kind === 'recorded') },
+  { title: 'Demo contracts in the soroban test host', items: scenarios.filter((s) => s.provenance.kind !== 'recorded') },
+];
+const STATUS = ['matched', 'ambiguous', 'value_mismatch', 'unknown'] as const;
+---
+
+<div class="ss-pg not-content ss-wide-page" data-boot={JSON.stringify(boot)}>
+  <div class="ss-tabs" role="tablist" aria-label="Input source">
+    <button class="ss-tab" role="tab" id="ss-tab-scenarios" aria-controls="ss-pane-scenarios" aria-selected="true" data-tab="scenarios">Scenarios</button>
+    <button class="ss-tab" role="tab" id="ss-tab-own" aria-controls="ss-pane-own" aria-selected="false" data-tab="own" tabindex="-1">Your files</button>
+    <button class="ss-tab" role="tab" id="ss-tab-live" aria-controls="ss-pane-live" aria-selected="false" data-tab="live" tabindex="-1">Live mainnet</button>
+  </div>
+
+  <div class="ss-pg-grid">
+    <div class="ss-stack">
+      <!-- Scenarios -->
+      <section class="ss-panel" id="ss-pane-scenarios" role="tabpanel" aria-labelledby="ss-tab-scenarios">
+        <div class="ss-panel-body ss-scen-groups">
+          {
+            groups.map((g) => (
+              <div class="ss-scen-group">
+                <h2 class="ss-group-title">{g.title}</h2>
+                <ul class="ss-scen-list" role="list">
+                  {g.items.map((s) => (
+                    <li>
+                      <button class="ss-scen" type="button" data-scenario={s.id} aria-pressed="false">
+                        <span class="ss-scen-title">{s.title}</span>
+                        <span class="ss-scen-counts">
+                          {STATUS.filter((k) => s.summary.by_status[k] > 0).map((k) => (
+                            <span class={`ss-count ss-st-${k}`}>
+                              {fmt(s.summary.by_status[k])} {k.replace('_', ' ')}
+                            </span>
+                          ))}
+                        </span>
+                      </button>
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            ))
+          }
+        </div>
+      </section>
+
+      <!-- Your files -->
+      <section class="ss-panel" id="ss-pane-own" role="tabpanel" aria-labelledby="ss-tab-own" hidden>
+        <div class="ss-panel-head">
+          <div>
+            <h2 class="ss-panel-title">Your files</h2>
+            <p class="ss-panel-sub">Read in this browser. Nothing is uploaded.</p>
+          </div>
+        </div>
+        <div class="ss-panel-body ss-form">
+          <div class="ss-field">
+            <label for="ss-own-wasm">Contract wasm (optional)</label>
+            <input id="ss-own-wasm" type="file" accept=".wasm,application/wasm" />
+            <select id="ss-own-wasm-demo" aria-label="Or pick a demo wasm">
+              <option value="">or pick a demo wasm (DEMO-ONLY)</option>
+              {wasm.map((w) => <option value={w.url}>{w.file.split('/').pop()}</option>)}
+            </select>
+            <p class="ss-help" id="ss-own-wasm-note">No wasm: only sidecars give the schema.</p>
+          </div>
+          <fieldset class="ss-field">
+            <legend>Sidecar schemas</legend>
+            {
+              sidecars.map((c) => (
+                <label class="ss-check">
+                  <input type="checkbox" name="ss-own-sidecar" value={c.url} data-label={c.label} />
+                  <span class="ss-mono">{c.label}</span>
+                </label>
+              ))
+            }
+            <label for="ss-own-sidecar">Or paste a sidecar JSON</label>
+            <textarea id="ss-own-sidecar" rows="3" spellcheck="false" placeholder='{"storage_schema": 0, "keys": [...]}'></textarea>
+          </fieldset>
+          <div class="ss-field">
+            <label for="ss-own-entries">Ledger entries: a getLedgerEntries response (JSON)</label>
+            <textarea id="ss-own-entries" rows="5" spellcheck="false" placeholder='{"jsonrpc":"2.0","id":1,"result":{"entries":[{"xdr":"..."}]}}'></textarea>
+            <p class="ss-help">
+              Get one with <code>storage-schema rpc entries</code>, <code>curl</code>, or the recorded files under
+              <a href={`${base}inputs/fixtures/mainnet/usdc-sac.balances.json`}>inputs/fixtures</a>.
+            </p>
+          </div>
+          <div class="ss-row">
+            <button class="ss-btn ss-btn-primary" type="button" id="ss-own-run">Decode</button>
+            <button class="ss-btn" type="button" id="ss-own-inspect">Inspect wasm</button>
+          </div>
+        </div>
+      </section>
+
+      <!-- Live -->
+      <section class="ss-panel" id="ss-pane-live" role="tabpanel" aria-labelledby="ss-tab-live" hidden>
+        <div class="ss-panel-head">
+          <div>
+            <h2 class="ss-panel-title">Live mainnet</h2>
+            <p class="ss-panel-sub">This page calls getLedgerEntries on a public RPC. Read-only: nothing is signed or sent.</p>
+          </div>
+          <GateBadge kind="mainnet-read-only" />
+        </div>
+        <div class="ss-panel-body ss-form">
+          <div class="ss-field">
+            <label for="ss-live-id">Contract id</label>
+            <input id="ss-live-id" class="ss-mono" type="text" spellcheck="false" autocomplete="off" value="CCW67TSZV3SSS2HXMBQ5JFGCKJNXKZM7UQUWUZPUTHXSTZLEO7SJMI75" />
+            <p class="ss-help">Prefilled: USDC's Stellar Asset Contract.</p>
+          </div>
+          <fieldset class="ss-field">
+            <legend>Sidecar schemas</legend>
+            {
+              sidecars.map((c) => (
+                <label class="ss-check">
+                  <input type="checkbox" name="ss-live-sidecar" value={c.url} data-label={c.label} />
+                  <span class="ss-mono">{c.label}</span>
+                </label>
+              ))
+            }
+            <p class="ss-help">A Stellar Asset Contract gets the SAC sidecar ticked automatically, and it is cleared again when the next contract is a wasm one. A wasm contract uses the schema in its own wasm, if it has one.</p>
+          </fieldset>
+          <div class="ss-field">
+            <label for="ss-live-fetch">Also read one key (optional)</label>
+            <select id="ss-live-fetch" disabled>
+              <option value="">Read the instance first</option>
+            </select>
+            <input id="ss-live-args" class="ss-mono" type="text" spellcheck="false" autocomplete="off" placeholder="key arguments, comma separated (e.g. a C... or G... address)" disabled />
+          </div>
+          <div class="ss-row">
+            <button class="ss-btn ss-btn-primary" type="button" id="ss-live-run">Read mainnet</button>
+          </div>
+          <ol class="ss-calls" id="ss-live-calls" aria-label="RPC calls made by this page"></ol>
+        </div>
+      </section>
+
+      <p class="ss-engine-line" id="ss-engine">
+        Decoder: <span class="ss-mono">storage-schema-engine.wasm</span>, {fmt(engine.size)} bytes, built {engine.built_at.slice(0, 10)} with {engine.rustc.split(' (')[0]}.{' '}
+        <span id="ss-engine-state">Loading.</span>
+      </p>
+    </div>
+
+    <section class="ss-panel ss-result" aria-live="polite" aria-busy="false" id="ss-result">
+      <div class="ss-empty" id="ss-result-empty">
+        <span class="ss-empty-icon"><Icon name="seti:json" size="1.5rem" /></span>
+        <p class="ss-empty-title" id="ss-empty-title">Loading the decoder</p>
+        <p class="ss-empty-sub">{fmt(engine.size)} bytes of WebAssembly, loaded once. Then each scenario decodes real ledger entries in this browser and is checked against the CLI's golden output.</p>
+      </div>
+      <div id="ss-result-body" hidden></div>
+    </section>
+  </div>
+
+  <template id="ss-icon-matched"><Icon name="approve-check-circle" size="1.05em" /></template>
+  <template id="ss-icon-ambiguous"><Icon name="warning" size="1.05em" /></template>
+  <template id="ss-icon-value_mismatch"><Icon name="error" size="1.05em" /></template>
+  <template id="ss-icon-unknown"><Icon name="question-circle" size="1.05em" /></template>
+  <template id="ss-icon-recorded"><Icon name="database" size="1em" /></template>
+  <template id="ss-icon-fixture"><Icon name="document" size="1em" /></template>
+  <template id="ss-icon-own"><Icon name="laptop" size="1em" /></template>
+  <template id="ss-icon-check"><Icon name="approve-check" size="1em" /></template>
+  <template id="ss-icon-x"><Icon name="close" size="1em" /></template>
+</div>
+
+<script>
+  import { initPlayground } from '../lib/playground.ts';
+  initPlayground();
+</script>
+
+<style>
+  .ss-pg { display: grid; gap: 1rem; }
+  .ss-pg-grid { display: grid; gap: 1.25rem; grid-template-columns: minmax(0, 1fr); align-items: start; }
+  @media (min-width: 1024px) {
+    .ss-pg-grid { grid-template-columns: minmax(0, 22rem) minmax(0, 1fr); }
+  }
+  .ss-tabs {
+    display: inline-flex;
+    gap: 2px;
+    padding: 2px;
+    justify-self: start;
+    border: 1px solid var(--sik-line);
+    border-radius: var(--sik-radius-sm);
+    background: var(--sik-sunken);
+    max-width: 100%;
+    overflow-x: auto;
+  }
+  .ss-tab {
+    height: 1.875rem;
+    padding: 0 0.75rem;
+    border: 0;
+    border-radius: 4px;
+    background: transparent;
+    color: var(--sik-ink-2);
+    font: inherit;
+    font-size: var(--sik-text-sm);
+    font-weight: 500;
+    white-space: nowrap;
+    cursor: pointer;
+    transition: background-color var(--sik-duration-fast) var(--sik-ease-settle), color var(--sik-duration-fast) var(--sik-ease-settle);
+  }
+  .ss-tab:hover { color: var(--sik-ink); }
+  .ss-tab[aria-selected='true'] { background: var(--sik-surface); color: var(--sik-ink); box-shadow: var(--sik-shadow-1); }
+  .ss-scen-groups { display: grid; gap: 1.25rem; }
+  .ss-group-title { margin: 0 0 0.5rem; color: var(--sik-ink-3); font-size: var(--sik-text-xs); font-weight: 500; }
+  .ss-scen-list { display: grid; gap: 0.375rem; margin: 0; padding: 0; list-style: none; }
+  .ss-scen {
+    display: grid;
+    gap: 0.25rem;
+    width: 100%;
+    padding: 0.625rem 0.75rem;
+    border: 1px solid var(--sik-line);
+    border-radius: var(--sik-radius-sm);
+    background: var(--sik-surface);
+    color: var(--sik-ink);
+    font: inherit;
+    text-align: left;
+    cursor: pointer;
+    transition: border-color var(--sik-duration-fast) var(--sik-ease-settle), background-color var(--sik-duration-fast) var(--sik-ease-settle);
+  }
+  .ss-scen:hover { border-color: var(--sik-line-strong); background: var(--sik-sunken); }
+  .ss-scen[aria-pressed='true'] { border-color: var(--sik-accent); background: var(--sik-accent-wash); }
+  .ss-scen-title { font-size: var(--sik-text-sm); line-height: var(--sik-text-sm--lh); font-weight: 500; }
+  .ss-scen-counts { display: flex; flex-wrap: wrap; gap: 0.25rem 0.75rem; font-size: var(--sik-text-xs); font-variant-numeric: tabular-nums; }
+  .ss-form { display: grid; gap: 1rem; }
+  .ss-field { display: grid; gap: 0.375rem; min-width: 0; margin: 0; padding: 0; border: 0; }
+  .ss-field > label, .ss-field > legend { color: var(--sik-ink); font-size: var(--sik-text-sm); font-weight: 500; padding: 0; }
+  .ss-check { display: flex; gap: 0.5rem; align-items: center; color: var(--sik-ink-2); font-size: var(--sik-text-sm); overflow-wrap: anywhere; }
+  .ss-calls { display: grid; gap: 0.25rem; margin: 0; padding: 0 0 0 1.25rem; color: var(--sik-ink-3); font-size: var(--sik-text-xs); }
+  .ss-calls:empty { display: none; }
+  .ss-engine-line { margin: 0; color: var(--sik-ink-3); font-size: var(--sik-text-xs); line-height: var(--sik-text-xs--lh); }
+  .ss-result { min-height: 20rem; }
+  .ss-empty { display: grid; justify-items: start; gap: 0.5rem; padding: 2rem 1.25rem; }
+  .ss-empty-icon {
+    display: inline-grid;
+    place-items: center;
+    width: 2.75rem;
+    height: 2.75rem;
+    border-radius: var(--sik-radius-sm);
+    background: var(--sik-sunken);
+    color: var(--sik-ink-3);
+  }
+  .ss-empty-title { margin: 0; color: var(--sik-ink); font-weight: 600; }
+  .ss-empty-sub { margin: 0; max-width: 52ch; color: var(--sik-ink-2); font-size: var(--sik-text-sm); }
+</style>
