@@ -1,0 +1,51 @@
+{
+  "$schema": "../schemas/storage-schema.v0.schema.json",
+  "storage_schema": 0,
+  "description": "Built-in Stellar Asset Contract (SAC). It has no wasm, so a sidecar is the only way to carry its schema. Written by hand on 2026-11-03 from soroban-env-host 28.0.2 src/builtin_contracts/stellar_asset_contract/{storage_types,metadata,public_types}.rs. Balances of G-accounts live in trustlines, not contract data; only contract (C...) holders have DataKey::Balance entries.",
+  "keys": [
+    {
+      "name": "DataKey::Balance",
+      "lib": "soroban-env-host@28.0.2",
+      "durability": "persistent",
+      "key": { "tagged": { "tag": "Balance", "fields": ["Address"] } },
+      "value": "BalanceValue"
+    },
+    {
+      "name": "DataKey::Allowance",
+      "lib": "soroban-env-host@28.0.2",
+      "durability": "temporary",
+      "key": { "tagged": { "tag": "Allowance", "fields": ["AllowanceDataKey"] } },
+      "value": "AllowanceValue"
+    },
+    {
+      "name": "InstanceDataKey::Admin",
+      "lib": "soroban-env-host@28.0.2",
+      "durability": "instance",
+      "key": { "tagged": { "tag": "Admin" } },
+      "value": "Address"
+    },
+    {
+      "name": "InstanceDataKey::AssetInfo",
+      "lib": "soroban-env-host@28.0.2",
+      "durability": "instance",
+      "key": { "tagged": { "tag": "AssetInfo" } },
+      "value": "AssetInfo"
+    },
+    {
+      "name": "METADATA",
+      "lib": "soroban-env-host@28.0.2",
+      "durability": "instance",
+      "key": { "symbol": "METADATA" },
+      "value": "StellarAssetContractMetadata"
+    }
+  ],
+  "types": [
+    "pub struct BalanceValue { pub amount: i128, pub authorized: bool, pub clawback: bool }",
+    "pub struct AllowanceDataKey { pub from: Address, pub spender: Address }",
+    "pub struct AllowanceValue { pub amount: i128, pub live_until_ledger: u32 }",
+    "pub struct StellarAssetContractMetadata { pub decimal: u32, pub name: String, pub symbol: String }",
+    "pub struct AlphaNum4AssetInfo { pub asset_code: String, pub issuer: BytesN<32> }",
+    "pub struct AlphaNum12AssetInfo { pub asset_code: String, pub issuer: BytesN<32> }",
+    "pub enum AssetInfo { Native, AlphaNum4(AlphaNum4AssetInfo), AlphaNum12(AlphaNum12AssetInfo) }"
+  ]
+}

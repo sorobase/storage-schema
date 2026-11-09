@@ -1,0 +1,62 @@
+{
+  "$schema": "../schemas/storage-schema.v0.schema.json",
+  "storage_schema": 0,
+  "description": "OpenZeppelin stellar-contracts v0.8.0 examples/fungible-pausable (tag v0.8.0, commit ddc327e). Written by hand from the source on 2026-11-03; keys of imported crates are labelled with lib.",
+  "keys": [
+    {
+      "name": "OWNER",
+      "doc": "Owner address, set in the constructor (examples/fungible-pausable/src/contract.rs).",
+      "durability": "instance",
+      "key": { "symbol": "OWNER" },
+      "value": "Address"
+    },
+    {
+      "name": "FungibleStorageKey::Meta",
+      "lib": "stellar-tokens@0.8.0",
+      "durability": "instance",
+      "key": { "tagged": { "tag": "Meta" } },
+      "value": "Metadata"
+    },
+    {
+      "name": "FungibleStorageKey::Balance",
+      "lib": "stellar-tokens@0.8.0",
+      "durability": "persistent",
+      "key": { "tagged": { "tag": "Balance", "fields": ["Address"] } },
+      "value": "i128"
+    },
+    {
+      "name": "FungibleStorageKey::Allowance",
+      "lib": "stellar-tokens@0.8.0",
+      "durability": "temporary",
+      "key": { "tagged": { "tag": "Allowance", "fields": ["AllowanceKey"] } },
+      "value": "AllowanceData"
+    },
+    {
+      "name": "TotalSupplyStorageKey::TotalSupply",
+      "lib": "stellar-tokens@0.8.0",
+      "durability": "persistent",
+      "key": { "tagged": { "tag": "TotalSupply" } },
+      "value": "i128"
+    },
+    {
+      "name": "LegacyFungibleStorageKey::TotalSupply",
+      "lib": "stellar-tokens@0.8.0",
+      "doc": "Pre-0.8 location of the total supply; read once and removed by the migration in fungible/extensions/total_supply/storage.rs. Same key ScVal as TotalSupplyStorageKey::TotalSupply; only the durability differs.",
+      "durability": "instance",
+      "key": { "tagged": { "tag": "TotalSupply" } },
+      "value": "i128"
+    },
+    {
+      "name": "PausableStorageKey::Paused",
+      "lib": "stellar-contract-utils@0.8.0",
+      "durability": "instance",
+      "key": { "tagged": { "tag": "Paused" } },
+      "value": "bool"
+    }
+  ],
+  "types": [
+    "pub struct Metadata { pub decimals: u32, pub name: String, pub symbol: String }",
+    "pub struct AllowanceKey { pub owner: Address, pub spender: Address }",
+    "pub struct AllowanceData { pub amount: i128, pub live_until_ledger: u32 }"
+  ]
+}

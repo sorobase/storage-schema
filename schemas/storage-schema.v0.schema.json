@@ -1,0 +1,78 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://sik.invalid/storage-schema/v0.schema.json",
+  "title": "Soroban storage schema sidecar, version 0 (contractstoragev0)",
+  "description": "Human-writable form of a contractstoragev0 Wasm custom section. See SPEC.md section 5. Type strings use Rust syntax as mapped by soroban-sdk #[contracttype] (e.g. \"i128\", \"Vec<Address>\", \"Option<BalanceValue>\", \"BytesN<32>\", \"(u32, Address)\").",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["storage_schema", "keys"],
+  "properties": {
+    "$schema": { "type": "string" },
+    "storage_schema": { "const": 0 },
+    "description": { "type": "string" },
+    "keys": { "type": "array", "items": { "$ref": "#/$defs/key" } },
+    "types": {
+      "type": "array",
+      "items": {
+        "oneOf": [
+          { "type": "string", "description": "Rust source of a #[contracttype] struct or enum" },
+          { "type": "object", "description": "stellar-xdr JSON of an SCSpecEntry (udt_struct_v0, udt_union_v0, udt_enum_v0, udt_error_enum_v0)" }
+        ]
+      }
+    }
+  },
+  "$defs": {
+    "typeString": { "type": "string", "minLength": 1 },
+    "key": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["name", "durability", "key", "value"],
+      "properties": {
+        "name": { "type": "string", "maxLength": 60 },
+        "lib": { "type": "string", "maxLength": 80, "description": "writer of the entry: empty = the contract, else crate[@version]" },
+        "doc": { "type": "string", "maxLength": 1024 },
+        "durability": { "enum": ["instance", "persistent", "temporary"] },
+        "value": { "$ref": "#/$defs/typeString" },
+        "key": {
+          "oneOf": [
+            {
+              "type": "object", "additionalProperties": false, "required": ["symbol"],
+              "properties": { "symbol": { "type": "string", "maxLength": 32, "pattern": "^[A-Za-z0-9_]*$" } }
+            },
+            {
+              "type": "object", "additionalProperties": false, "required": ["exact"],
+              "properties": { "exact": { "type": "object", "description": "stellar-xdr JSON ScVal, e.g. {\"u32\": 7}" } }
+            },
+            {
+              "type": "object", "additionalProperties": false, "required": ["tagged"],
+              "properties": {
+                "tagged": {
+                  "type": "object", "additionalProperties": false, "required": ["tag"],
+                  "properties": {
+                    "tag": { "type": "string", "maxLength": 32, "pattern": "^[A-Za-z0-9_]+$" },
+                    "fields": {
+                      "type": "array",
+                      "items": {
+                        "oneOf": [
+                          { "$ref": "#/$defs/typeString" },
+                          {
+                            "type": "object", "additionalProperties": false, "required": ["name", "type"],
+                            "properties": { "name": { "type": "string", "maxLength": 30 }, "type": { "$ref": "#/$defs/typeString" } }
+                          }
+                        ]
+                      }
+                    }
+                  }
+                }
+              }
+            },
+            {
+              "type": "object", "additionalProperties": false, "required": ["typed"],
+              "properties": { "typed": { "$ref": "#/$defs/typeString" } }
+            }
+          ]
+        }
+      }
+    }
+  }
+}
