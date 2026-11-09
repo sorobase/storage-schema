@@ -4,7 +4,7 @@ description = "storage-schema decoder compiled to WebAssembly for the docs-site 
 version.workspace = true
 edition.workspace = true
 license.workspace = true
-publish.workspace = true
+publish = false
 rust-version.workspace = true
 
 [lib]

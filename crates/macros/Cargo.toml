@@ -4,6 +4,11 @@ description = "Attribute macros that write a contractstoragev0 Wasm custom secti
 version.workspace = true
 edition.workspace = true
 license.workspace = true
+repository.workspace = true
+homepage.workspace = true
+keywords.workspace = true
+categories.workspace = true
+readme = "README.md"
 publish.workspace = true
 rust-version.workspace = true
 
@@ -11,7 +16,7 @@ rust-version.workspace = true
 proc-macro = true
 
 [dependencies]
-sik-storage-schema-core = { path = "../core", default-features = false }
+sik-storage-schema-core = { path = "../core", version = "0.1.0", default-features = false }
 stellar-xdr = { workspace = true }
 syn = { workspace = true }
 quote = { workspace = true }
