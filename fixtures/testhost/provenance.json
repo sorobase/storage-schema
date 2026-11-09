@@ -1,0 +1,18 @@
+{
+  "captured": "2026-11-08T05:53:17Z",
+  "script": "scripts/capture-testhost.sh",
+  "source": "soroban test host (soroban-sdk =28.0.0 testutils), running the built wasm from fixtures/wasm/ in demos/*/tests/schema_e2e.rs; not a network",
+  "rustc": "rustc 1.97.1 (8bab26f4f 2026-07-14)",
+  "calls": {
+    "token.entries.json": "ssc_demo_token.wasm: __constructor(admin, 7, \"Demo\", \"DEMO\"); mint(alice, 1000); transfer(alice, bob, 250); approve(alice, bob, 40, 200)",
+    "increment.entries.json": "ssc_demo_increment.wasm: increment() x3",
+    "oz-pausable.entries.json": "ssc_demo_oz_pausable.injected.wasm (same code as ssc_demo_oz_pausable.wasm): __constructor(\"OZ Demo\", \"OZD\", owner, 5000); transfer(owner, bob, 1200); approve(owner, bob, 7, 500); pause(owner)",
+    "oz-extern.entries.json": "ssc_demo_oz_extern.wasm: __constructor(owner, 9000); transfer(owner, bob, 400); approve(owner, bob, 25, 300); pause(owner)"
+  },
+  "files": {
+    "increment.entries.json": {"bytes": 433, "sha256": "11a6c9115d0ce9060ed6d63219e169498208c2948dbc4a8e1d389a5ea9c8c32b"},
+    "oz-extern.entries.json": {"bytes": 2384, "sha256": "76cf89adb1a188d80b3f55bd088a2820b57000432a5fb1ff52d65e2b35bc86c6"},
+    "oz-pausable.entries.json": {"bytes": 2746, "sha256": "91346fb9c510668fcaaed616ec624238802affb1da550017e7dfa09ed5015d5f"},
+    "token.entries.json": {"bytes": 2328, "sha256": "7b03de6c1edd00aeedbf81f35c93c059f450b2922320bcb5df259cd0b0195140"}
+  }
+}

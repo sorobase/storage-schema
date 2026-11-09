@@ -1,0 +1,30 @@
+{
+  "captured": "2026-11-03T22:55:28Z",
+  "script": "scripts/capture-mainnet.sh",
+  "network": "mainnet (read-only)",
+  "rpc": "https://mainnet.sorobanrpc.com",
+  "latest_ledger_at_start": 65292081,
+  "usdc_sac": "CCW67TSZV3SSS2HXMBQ5JFGCKJNXKZM7UQUWUZPUTHXSTZLEO7SJMI75",
+  "events_window": "getEvents from ledger 65287081, limit 200, contract CCW67TSZV3SSS2HXMBQ5JFGCKJNXKZM7UQUWUZPUTHXSTZLEO7SJMI75",
+  "holders_queried": [
+    "CA6PUJLBYKZKUEKLZJMKBZLEKP2OTHANDEOWSFF44FTSYLKQPIICCJBE",
+    "CAJJZSGMMM3PD7N33TAPHGBUGTB43OC73HVIK2L2G6BNGGGYOSSYBXBD",
+    "CBFMLBOP6VD3NOG6EKCSRSITLWEC6ISISBLVPXMINWN75YHB3YLOTAKH",
+    "CBQDHNBFBZYE4MKPWBSJOPIYLW4SFSXAXUTSXJN76GNKYVYPCKWC6QUK",
+    "CBZL2IH7F6BIDAA3WBNXYKIXSATJGMSW7K5P5MJ6STX5RXN47TZJDF5T"
+  ],
+  "holder_contract": "CA6PUJLBYKZKUEKLZJMKBZLEKP2OTHANDEOWSFF44FTSYLKQPIICCJBE",
+  "holder_wasm": {
+    "bytes": 57320,
+    "executable": "wasm",
+    "wasm_hash": "d691135aade93ff0f7c229e009cde042130a05124cf7202b03d11246b4f9b473",
+    "has_contractstoragev0": false,
+    "custom_sections": [
+      "contractspecv0",
+      "contractmetav0",
+      "contractenvmetav0",
+      "contractmetav0"
+    ]
+  },
+  "note": "The holder wasm itself is not stored; only its hash, size and section names."
+}

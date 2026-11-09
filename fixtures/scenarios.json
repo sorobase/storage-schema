@@ -1,0 +1,96 @@
+{
+  "format": "sik.storage-schema.scenarios/0",
+  "note": "Inputs for the golden decoder outputs (scripts/golden.sh -> fixtures/golden/) and the docs-site playground. Every input is a committed fixture with its own provenance file. Scenarios marked deliberate combine real inputs on purpose to show a status; the title says so.",
+  "scenarios": [
+    {
+      "id": "mainnet-usdc-sac",
+      "title": "USDC on mainnet, through the Stellar Asset Contract sidecar",
+      "story": "The built-in Stellar Asset Contract has no wasm, so it can never carry a section. A sidecar file describes it. Instance storage plus five contract-holder balances.",
+      "wasm": null,
+      "sidecars": ["sidecars/stellar-asset-contract.storage.json"],
+      "entries": ["fixtures/mainnet/usdc-sac.instance.json", "fixtures/mainnet/usdc-sac.balances.json"],
+      "provenance": "fixtures/mainnet/provenance.json",
+      "kind": "recorded"
+    },
+    {
+      "id": "mainnet-holder-no-schema",
+      "title": "A mainnet contract whose wasm carries no schema",
+      "story": "One of the USDC holders is a wasm contract without a contractstoragev0 section. This is every contract today: the decoder names nothing and says unknown for each entry, with the key shape.",
+      "wasm": null,
+      "sidecars": [],
+      "entries": ["fixtures/mainnet/holder.instance.json"],
+      "provenance": "fixtures/mainnet/provenance.json",
+      "kind": "recorded"
+    },
+    {
+      "id": "mainnet-sac-wrong-schema",
+      "title": "Deliberate: USDC balances read with the wrong schema",
+      "story": "The soroban-examples token stores Balance(Address) -> i128. The SAC stores Balance(Address) -> {amount, authorized, clawback}. Same key shape, different value: the decoder reports value_mismatch with the path, instead of a wrong decode.",
+      "wasm": "fixtures/wasm/ssc_demo_token.wasm",
+      "sidecars": [],
+      "entries": ["fixtures/mainnet/usdc-sac.balances.json"],
+      "provenance": "fixtures/mainnet/provenance.json",
+      "kind": "recorded"
+    },
+    {
+      "id": "testhost-token",
+      "title": "Token annotated with #[storage_schema]",
+      "story": "soroban-examples token with a one-attribute-per-variant diff. The schema travels inside the wasm; no other input is needed.",
+      "wasm": "fixtures/wasm/ssc_demo_token.wasm",
+      "sidecars": [],
+      "entries": ["fixtures/testhost/token.entries.json"],
+      "provenance": "fixtures/testhost/provenance.json",
+      "kind": "testhost"
+    },
+    {
+      "id": "testhost-increment",
+      "title": "Raw Symbol key with #[storage_key]",
+      "story": "soroban-examples increment stores a counter under symbol_short!(\"COUNTER\") in instance storage.",
+      "wasm": "fixtures/wasm/ssc_demo_increment.wasm",
+      "sidecars": [],
+      "entries": ["fixtures/testhost/increment.entries.json"],
+      "provenance": "fixtures/testhost/provenance.json",
+      "kind": "testhost"
+    },
+    {
+      "id": "testhost-oz-injected",
+      "title": "Unmodified OpenZeppelin token, schema injected after the build",
+      "story": "OZ stellar-contracts v0.8.0 fungible-pausable, not modified. A sidecar was written into the built wasm with storage-schema inject. Keys come from three crates; lib says which.",
+      "wasm": "fixtures/wasm/ssc_demo_oz_pausable.injected.wasm",
+      "sidecars": [],
+      "entries": ["fixtures/testhost/oz-pausable.entries.json"],
+      "provenance": "fixtures/testhost/provenance.json",
+      "kind": "testhost"
+    },
+    {
+      "id": "testhost-oz-no-schema",
+      "title": "The same OpenZeppelin token without a schema",
+      "story": "Identical entries, plain wasm. Without a schema nothing is named and nothing is guessed.",
+      "wasm": "fixtures/wasm/ssc_demo_oz_pausable.wasm",
+      "sidecars": [],
+      "entries": ["fixtures/testhost/oz-pausable.entries.json"],
+      "provenance": "fixtures/testhost/provenance.json",
+      "kind": "testhost"
+    },
+    {
+      "id": "testhost-oz-extern",
+      "title": "OpenZeppelin keys declared in source with storage_schema_extern!",
+      "story": "A token built on OZ stellar-tokens 0.8.0. The keys OZ writes are declared with storage_schema_extern! in a separate library crate, so the schema is in the wasm straight from stellar contract build (SSC-013).",
+      "wasm": "fixtures/wasm/ssc_demo_oz_extern.wasm",
+      "sidecars": [],
+      "entries": ["fixtures/testhost/oz-extern.entries.json"],
+      "provenance": "fixtures/testhost/provenance.json",
+      "kind": "testhost"
+    },
+    {
+      "id": "testhost-collision-2088",
+      "title": "Deliberate: two crates both claim Balance(Address)",
+      "story": "The token's schema merged with the OZ fungible sidecar, as when one contract links both crates (rs-soroban-sdk#2088). One ledger entry, two writers that could have meant it: the decoder reports ambiguous with both candidates and does not pick.",
+      "wasm": "fixtures/wasm/ssc_demo_token.wasm",
+      "sidecars": ["sidecars/oz-fungible-pausable-v0.8.0.storage.json"],
+      "entries": ["fixtures/testhost/token.entries.json"],
+      "provenance": "fixtures/testhost/provenance.json",
+      "kind": "testhost"
+    }
+  ]
+}

@@ -1,0 +1,23 @@
+{
+  "findings": [
+    {
+      "code": "collision",
+      "entries": [
+        "DataKey::Balance",
+        "FungibleStorageKey::Balance (stellar-tokens@0.8.0)"
+      ],
+      "message": "both address the same persistent ledger entry when keys coincide (sdk#2088); value types are equal (silent sharing)",
+      "severity": "error"
+    },
+    {
+      "code": "possible_collision",
+      "entries": [
+        "DataKey::Allowance",
+        "FungibleStorageKey::Allowance (stellar-tokens@0.8.0)"
+      ],
+      "message": "both address the same temporary ledger entry when keys coincide (sdk#2088); value types differ (AllowanceValue vs AllowanceData; whichever writes first breaks the other)",
+      "severity": "warning"
+    }
+  ],
+  "notes": []
+}

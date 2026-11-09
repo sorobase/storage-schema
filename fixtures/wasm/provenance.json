@@ -1,0 +1,22 @@
+{
+  "captured": "2026-11-08T05:53:04Z",
+  "script": "scripts/build-demos.sh",
+  "rustc": "rustc 1.97.1 (8bab26f4f 2026-07-14)",
+  "target": "wasm32v1-none, profile release (opt-level z, lto, codegen-units 1, strip symbols); built by stellar contract build (stellar-cli 25.2.0)",
+  "soroban_sdk": "=28.0.0",
+  "upstreams": {
+    "soroban-examples": "https://github.com/stellar/soroban-examples @ 03d42aa6b973dcf3a453a99d0c6a6e8d25a196e2 (Apache-2.0), token/ and increment/",
+    "oz-stellar-contracts": "https://github.com/OpenZeppelin/stellar-contracts tag v0.8.0 @ ddc327eb92d63709436da3a8455f641c2d5476c5 (MIT), examples/fungible-pausable/, crates stellar-tokens/stellar-contract-utils/stellar-macros =0.8.0"
+  },
+  "files": {
+    "ssc_demo_increment.noschema.wasm": {"bytes": 3847, "sha256": "1193ec72d9196709ca805046a8c15dd8605b036c64c8db23a51225ac486ab01b"},
+    "ssc_demo_increment.raw.wasm": {"bytes": 3919, "sha256": "b4cf2b6b66dce9887371e56846d73f803311ee8f866636836093cd3945e9ea33"},
+    "ssc_demo_increment.wasm": {"bytes": 747, "sha256": "af05d5bed2217776a840a237ee2ae7e484534697c6ce66f5dbd01307037fd09e"},
+    "ssc_demo_oz_extern.wasm": {"bytes": 8682, "sha256": "11c03eb29860a38e0ab8432dcbfea58c2269b1d0b4a0bdc92e18cfa8e19157fe"},
+    "ssc_demo_oz_pausable.injected.wasm": {"bytes": 13814, "sha256": "de1b465d6afc8c9d58fd7ebc02e8ddc427f250bf70a5c1e158c3a1eb110cd826"},
+    "ssc_demo_oz_pausable.wasm": {"bytes": 12541, "sha256": "419666841bf535d3557844830940ef41f73069c04043f6bdd7ee65033d930be9"},
+    "ssc_demo_token.noschema.wasm": {"bytes": 11915, "sha256": "802aeb58f97f17a7b61a61207917f55fa576e28b225ce2f79978cccf8be53400"},
+    "ssc_demo_token.raw.wasm": {"bytes": 12800, "sha256": "5f84b9cca8d0dd68dad98e39187e62d1ce389119f781c35340d17806c0e33fb0"},
+    "ssc_demo_token.wasm": {"bytes": 8885, "sha256": "92db58e2ddafe7871f005849f9605090cb5bc4fb43de740fa9f4a1946486cbb1"}
+  }
+}

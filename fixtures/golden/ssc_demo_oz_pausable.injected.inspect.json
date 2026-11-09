@@ -1,0 +1,93 @@
+{
+  "contractspecv0": {
+    "entries": 26,
+    "udts": [
+      "ExampleContractError",
+      "PausableError",
+      "FungibleTokenError"
+    ]
+  },
+  "contractstoragev0": {
+    "keys": [
+      {
+        "durability": "instance",
+        "key": "Symbol(\"OWNER\")",
+        "lib": "",
+        "name": "OWNER",
+        "value": "Address"
+      },
+      {
+        "durability": "instance",
+        "key": "[Symbol(\"Meta\")]",
+        "lib": "stellar-tokens@0.8.0",
+        "name": "FungibleStorageKey::Meta",
+        "value": "Metadata"
+      },
+      {
+        "durability": "persistent",
+        "key": "[Symbol(\"Balance\"), Address]",
+        "lib": "stellar-tokens@0.8.0",
+        "name": "FungibleStorageKey::Balance",
+        "value": "i128"
+      },
+      {
+        "durability": "temporary",
+        "key": "[Symbol(\"Allowance\"), AllowanceKey]",
+        "lib": "stellar-tokens@0.8.0",
+        "name": "FungibleStorageKey::Allowance",
+        "value": "AllowanceData"
+      },
+      {
+        "durability": "persistent",
+        "key": "[Symbol(\"TotalSupply\")]",
+        "lib": "stellar-tokens@0.8.0",
+        "name": "TotalSupplyStorageKey::TotalSupply",
+        "value": "i128"
+      },
+      {
+        "durability": "instance",
+        "key": "[Symbol(\"TotalSupply\")]",
+        "lib": "stellar-tokens@0.8.0",
+        "name": "LegacyFungibleStorageKey::TotalSupply",
+        "value": "i128"
+      },
+      {
+        "durability": "instance",
+        "key": "[Symbol(\"Paused\")]",
+        "lib": "stellar-contract-utils@0.8.0",
+        "name": "PausableStorageKey::Paused",
+        "value": "bool"
+      }
+    ],
+    "payload_bytes": 1252,
+    "sections": 1,
+    "types": [
+      "Metadata",
+      "AllowanceKey",
+      "AllowanceData"
+    ]
+  },
+  "custom_sections": [
+    {
+      "bytes": 32,
+      "name": "contractenvmetav0"
+    },
+    {
+      "bytes": 150,
+      "name": "contractmetav0"
+    },
+    {
+      "bytes": 85,
+      "name": "contractmetav0"
+    },
+    {
+      "bytes": 4426,
+      "name": "contractspecv0"
+    },
+    {
+      "bytes": 1273,
+      "name": "contractstoragev0"
+    }
+  ],
+  "wasm_bytes": 13814
+}
