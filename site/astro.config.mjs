@@ -1,14 +1,15 @@
 // SPDX-License-Identifier: Apache-2.0
 // Docs site and in-browser playground for storage-schema (SSC-027).
 // Kit theme: design/astro (copied into src/, ADR-0002: projects stay
-// independent). Static output; set `site` (and `base` if served under a
-// path) when the hosting URL is known (DEPLOY.md).
+// independent). Static output hosted on Vercel at the URL below (DEPLOY.md).
+// Served at the domain root, so `base` stays unset.
 import { defineConfig } from 'astro/config';
 import starlight from '@astrojs/starlight';
 
 const PROJECT = 'storage-schema';
 
 export default defineConfig({
+  site: 'https://storage-schema.vercel.app',
   integrations: [
     starlight({
       title: 'storage-schema',

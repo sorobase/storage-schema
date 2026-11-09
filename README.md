@@ -4,6 +4,7 @@ An off-chain storage schema for Soroban contracts. A contract describes which ke
 
 This answers the open question in [rs-soroban-sdk#1818](https://github.com/stellar/rs-soroban-sdk/issues/1818) (Leigh, 2026-04-28): *how does an off-chain consumer map a ledger entry to a schema type?* See SPEC section 4.
 
+- Live docs site and playground: <https://storage-schema.vercel.app/> (source `site/`, hosting notes in `DEPLOY.md`)
 - `SPEC.md`: normative format, matching rules, CLI and library interfaces
 - `drafts/SEP-storage-schema.md`: SEP draft (not submitted)
 - `drafts/sdk-1818-comment.md`: comment draft for #1818 (not posted)

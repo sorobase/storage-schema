@@ -56,4 +56,4 @@ Supported claim only: no public repo or crate found on 2026-11-03 emits or consu
 
 ## What launch needs
 
-Static hosting for `site/dist` (no server); publishing `sik-storage-schema-core`, `-macros` and `-cli` to crates.io (names and licence check); a security review of the parsers (they read untrusted wasm and XDR) with fuzzing first; the SDF conversation on #1818. See `DEPLOY.md`.
+Publishing `sik-storage-schema-core`, `-macros` and `-cli` to crates.io (names and licence check); a security review of the parsers (they read untrusted wasm and XDR) with fuzzing first; the SDF conversation on #1818. See `DEPLOY.md`.

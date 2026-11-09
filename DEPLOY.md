@@ -1,13 +1,15 @@
 <!-- SPDX-License-Identifier: Apache-2.0 -->
 # storage-schema: deploy and publish checklist (later phase)
 
-Nothing here has been done. Agents do not publish, deploy or push (programme rules); the project owner runs these steps. Written 2026-11-08. Ticket: SSC-029.
+Agents do not publish, deploy or push (programme rules); the project owner runs these steps. Written 2026-11-08. Ticket: SSC-029.
+
+**Status (2026-11-09):** the docs site is hosted on Vercel at <https://storage-schema.vercel.app/> (Astro preset, root directory `site`, `pnpm install --frozen-lockfile`, `pnpm build`, output `dist`, Node 22.x). Source: <https://github.com/sorobase/storage-schema>. The crates are **not** published yet (see "Before publishing crates").
 
 ## What gets published
 
 | Artefact | Where | Build | Notes |
 |---|---|---|---|
-| Docs site + playground | any static host (GitHub Pages, Cloudflare Pages, Netlify, S3+CDN) | `cd site && pnpm install --frozen-lockfile && pnpm build` -> `site/dist/` | no server, no secrets, no env vars. Serve `.wasm` as `application/wasm` (most hosts do) |
+| Docs site + playground (**live**) | Vercel; any static host (GitHub Pages, Cloudflare Pages, Netlify, S3+CDN) | `cd site && pnpm install --frozen-lockfile && pnpm build` -> `site/dist/` | no server, no secrets, no env vars. Serve `.wasm` as `application/wasm` (most hosts do) |
 | `sik-storage-schema-core` | crates.io | `cargo publish -p sik-storage-schema-core` | default feature `rpc` pulls `ureq`; the macro and engine use `default-features = false` |
 | `sik-storage-schema-macros` | crates.io | `cargo publish -p sik-storage-schema-macros` | depends on core; publish core first |
 | `sik-storage-schema-cli` (binary `storage-schema`) | crates.io (`cargo install`) and optional release binaries | `cargo publish -p sik-storage-schema-cli` | |
