@@ -1,0 +1,15 @@
+[package]
+name = "sik-storage-schema-web"
+description = "storage-schema decoder compiled to WebAssembly for the docs-site playground (C ABI, no wasm-bindgen)"
+version.workspace = true
+edition.workspace = true
+license.workspace = true
+publish.workspace = true
+rust-version.workspace = true
+
+[lib]
+crate-type = ["cdylib", "rlib"]
+
+[dependencies]
+sik-storage-schema-core = { path = "../core", default-features = false }
+serde_json = { workspace = true }
